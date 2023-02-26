@@ -22,6 +22,7 @@ class AuthenticationController extends Controller
             ]
             );
         User::create($credentials);
+        return redirect('/');
     }
 
     //connexion d'un utilisateur
