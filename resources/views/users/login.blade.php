@@ -2,7 +2,6 @@
 
 @section('content')
 
-<<<<<<< HEAD
 
 <div class="d-flex flex-column ms-5  my-3 align-items-center justify-content-between">
 <div>
@@ -15,15 +14,6 @@
 </div>
 </div>
 
-=======
-              <h3 class="mb-5">Sign in</h3>
-              @error('error')
-                <div class="alert alert-danger">
-                            <span>{{ $message }}</span>
-
-                </div>
-              @enderror
->>>>>>> 65153bb2846e467410bbbad6a406df96aa67eb8f
               <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group row">
