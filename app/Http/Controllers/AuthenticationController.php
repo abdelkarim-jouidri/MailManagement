@@ -10,7 +10,7 @@ class AuthenticationController extends Controller
 {
     //création d'un compte
     public function create(){
-        return view('user.register');
+        return view('users.register');
     }
 
     public function store(Request $request){
@@ -26,17 +26,22 @@ class AuthenticationController extends Controller
 
     //connexion d'un utilisateur
     public function login(){
-        return view('user.login');
+        return view('users.login');
+    }
+
+    public function register(){
+        return view('users.register');
     }
 
     public function authenticate(Request $request){
+
         $credentials = $request->validate(
             [
                 'name'=>'required|min:3',
                 'password'=>'required'
             ]
             );
-        
+
         if(!Auth::attempt($credentials)){
             return back()->withErrors(['message'=>"nom d'utilisateur ou mot de passe invalide"])->only('name');
         }

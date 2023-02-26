@@ -1,14 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="vh-100" style="background-color: #087ef3;">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card shadow-2-strong" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
 
-              <h3 class="mb-5">Sign in</h3>
+
+<div class="d-flex flex-column ms-5  my-3 align-items-center justify-content-between">
+<div>
+<svg width="82px" height="82px" viewBox="-1.92 -1.92 27.84 27.84" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7" stroke="#000000" stroke-width="0.264" stroke-linecap="round" stroke-linejoin="round"></path> <rect x="3" y="5" width="18" height="14" rx="2" stroke="#000000" stroke-width="0.264" stroke-linecap="round"></rect> </g></svg>
+
+</div>
+<div>
+<h3 class="text-decoration-underline text-dark">Sign in</h3>
+
+</div>
+</div>
+
               <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group row">
@@ -40,18 +45,9 @@
                 </div>
 
 
-                <div>
-                    <button class="btn btn-success w-100 btn-lg btn-block" type="submit">Login</button>
+                <div class="text-end">
+                    <button class="btn btn-white border border-dark   btn-block" type="submit">Login</button>
                 </div>
               </form>
               <hr class="my-4">
-
-
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 @endsection
