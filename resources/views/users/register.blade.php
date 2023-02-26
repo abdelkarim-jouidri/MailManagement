@@ -7,10 +7,16 @@
 
     </div>
     <div>
-    <h3 class="text-decoration-underline text-dark">Register</h3>
+    <h3 class="text-decoration-underline text-dark">Création du compte</h3>
 
     </div>
     </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
 <form method="POST" action="/register">
     @csrf
 

@@ -22,7 +22,7 @@ class AuthenticationController extends Controller
             ]
             );
         User::create($credentials);
-        return redirect('/');
+        return back()->with('success', "L'utilisateur a été bien enregistré");;
     }
 
     //connexion d'un utilisateur
