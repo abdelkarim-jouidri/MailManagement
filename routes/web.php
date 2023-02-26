@@ -2,22 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
-use GuzzleHttp\Psr7\Request;
 
-Route::get('/', function () {
-    return view('users.login');
+Route::get('/',function(){
+    return view('welcome');
 });
 
-Route::POST('/login',[AuthenticationController::class,'authenticate'])->name('login');
-
-Route::GET('/login',[AuthenticationController::class,'login']);
-
-Route::GET('/register',[AuthenticationController::class,'register']);
-
-Route::post('/register', function (Request $request) {
-    dd($request);
-})->name('register');
-
-// Route::get('/register', function () {
-//     return view('users.register')->name('register');
-// });
+Route::get('/register',[AuthenticationController::class,'create']);
+Route::post('/register',[AuthenticationController::class,'register']);
+Route::get('/login',[AuthenticationController::class,'login'])->name('login');
+Route::post('login',[AuthenticationController::class,'authenticate']);
+Route::post('logout',[AuthenticationController::class,'logout']);
