@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('type_courriers', function (Blueprint $table) {
             $table->id();
-            $table->
+            $table->string('name');
             $table->timestamps();
         });
     }

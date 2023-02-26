@@ -26,7 +26,7 @@ class AuthenticationController extends Controller
 
     //connexion d'un utilisateur
     public function login(){
-        return view('user.login');
+        return view('users.login');
     }
 
     public function authenticate(Request $request){
@@ -38,7 +38,7 @@ class AuthenticationController extends Controller
             );
         
         if(!Auth::attempt($credentials)){
-            return back()->withErrors(['message'=>"nom d'utilisateur ou mot de passe invalide"])->only('name');
+            return back()->withErrors(['error'=>"nom d'utilisateur ou mot de passe invalide"]);
         }
 
         $request->session()->regenerate();
