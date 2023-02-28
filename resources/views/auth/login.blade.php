@@ -20,10 +20,20 @@
                                         <svg  width="82px" height="82px" viewBox="-1.92 -1.92 27.84 27.84" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7" stroke="#000000" stroke-width="0.264" stroke-linecap="round" stroke-linejoin="round"></path> <rect x="3" y="5" width="18" height="14" rx="2" stroke="#000000" stroke-width="0.264" stroke-linecap="round"></rect> </g></svg>
 
                                     </div>
-                                    {{-- error if login not correct --}}
-                                    @if($errors->has('email'))
-                                    <div class="alert alert-danger text-white text-center">{{ $errors->first('email') }} <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
+                                     {{-- error if login not correct --}}
+                                     @if($errors->has('email'))
+                                    <div class="alert text-white text-center alert-primary d-flex align-items-center justify-content-between" role="alert">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                        </svg>
+                                        <div>
+                                            {{ $errors->first('email') }}
+                                        </div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
                                      @endif
+
+                                  
 
                                     <h4 class="font-weight-bolder text-center">Authentification</h4>
                                 </div>

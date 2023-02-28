@@ -3,6 +3,16 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
     <div class="container-fluid py-4">
+         {{-- success login --}}
+         @if($errors->has('success-login'))
+         <div class="alert text-white text-center alert-success d-flex align-items-center justify-content-between" role="alert">
+            <img src="https://img.icons8.com/ios/50/null/good-quality--v1.png"/>
+             <div>
+                 {{ $errors->first('success-login') }}
+             </div>
+             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </div>
+          @endif
         <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
