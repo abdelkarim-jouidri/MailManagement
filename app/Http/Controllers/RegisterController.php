@@ -9,6 +9,7 @@ class RegisterController extends Controller
 {
     public function create()
     {
+        $profil =DB::table('profils')->all
         return view('auth.register');
     }
 
