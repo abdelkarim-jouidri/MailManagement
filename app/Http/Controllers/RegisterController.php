@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 // use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
     public function create()
     {
-        $profil =DB::table('profils')->all
-        return view('auth.register');
+        $profil =DB::table('profils')->get();
+        return view('auth.register',['departement'=>$profil]);
     }
 
     public function store()
