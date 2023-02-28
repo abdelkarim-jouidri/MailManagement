@@ -13,11 +13,11 @@
                 <div class="col-auto my-auto">
                     <div class="h-100">
                         <h5 class="mb-1">
-                            {{ auth()->user()->firstname ?? 'Firstname' }} {{ auth()->user()->lastname ?? 'Lastname' }}
+                            {{ auth()->user()->first_name ?? 'Firstname' }} {{ auth()->user()->last_name ?? 'Lastname' }}
                         </h5>
-                        <p class="mb-0 font-weight-bold text-sm">
+                        {{-- <p class="mb-0 font-weight-bold text-sm">
                             Public Relations
-                        </p>
+                        </p> --}}
                     </div>
                 </div>
 
@@ -45,7 +45,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Username</label>
-                                        <input class="form-control" type="text" name="username" value="{{ old('username', auth()->user()->username) }}">
+                                        <input class="form-control" type="text" name="username" value="{{ old('login', auth()->user()->login) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -57,18 +57,18 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">First name</label>
-                                        <input class="form-control" type="text" name="firstname"  value="{{ old('firstname', auth()->user()->firstname) }}">
+                                        <input class="form-control" type="text" name="firstname"  value="{{ old('first_name', auth()->user()->first_name) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Last name</label>
-                                        <input class="form-control" type="text" name="lastname" value="{{ old('lastname', auth()->user()->lastname) }}">
+                                        <input class="form-control" type="text" name="lastname" value="{{ old('last_name', auth()->user()->last_name) }}">
                                     </div>
                                 </div>
                             </div>
                             <hr class="horizontal dark">
-                           
+
 
                         </div>
                     </form>
