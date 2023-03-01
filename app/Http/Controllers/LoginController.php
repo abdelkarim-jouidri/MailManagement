@@ -21,12 +21,17 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        // dd($request);
+        // $credentials = $request->validate([
+        //     'email' => ['required', 'email'],
+        //     'password' => ['required'],
+        // ]);
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'login' => ['required'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt(['login' => $request->login, 'password' => $request->password])) {
             $request->session()->regenerate();
 
             return redirect()->intended('dashboard')->withErrors([
@@ -35,7 +40,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Les informations d’identification fournies ne correspondent pas à nos dossiers.',
+            'login' => 'Les informations d’identification fournies ne correspondent pas à nos dossiers.',
         ]);
     }
 

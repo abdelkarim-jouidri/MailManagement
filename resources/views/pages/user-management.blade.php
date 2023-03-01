@@ -8,7 +8,11 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Utilisateur</h6>
+
+                    @if(Auth::user()->is_admin==1)
                    <a title="ajouter_utilisateur" href="{{ route('register')}}"> <i class="fa fa-plus"></i> </a>
+                   @endif
+
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
@@ -54,7 +58,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                              
+
 
 
                             </tbody>
