@@ -29,7 +29,7 @@
                                         @method('post')
                                         <div class="flex flex-col mb-3">
                                             {{-- <input id="name" type="text" class="form-control form-control-lg @error('name') is-invalid @enderror" name="name" value="{{ old('name') ?? 'admin@gmail.com' }}" required autocomplete="name" autofocus> --}}
-                                            <input type="email" name="email" class="form-control form-control-lg" value="{{ old('email') ?? 'admin@argon.com' }}" aria-label="Email">
+                                            <input type="name" name="name" class="form-control form-control-lg" value="{{ old('name') }}" aria-label="Email">
                                             @error('name') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                         </div>
                                         <div class="flex flex-col mb-3">
