@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('login')->unique();
             $table->string('password');
             $table->string('email');
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
+            $table->string('prenom')->nullable();
+            $table->string('nom')->nullable();
             $table->integer('is_admin')->default(0);
             $table->integer('profil_id')->default(1);
             $table->integer('fonction_id')->default(1);

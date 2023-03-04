@@ -17,11 +17,19 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->insert([
             'login' => 'admin',
-            'first_name' => 'Admin',
-            'last_name' => 'Admin',
+            'nom' => 'Admin',
+            'prenom' => 'Admin',
+            'is_admin'=>1,
             'email' => 'admin@argon.com',
             'password' => bcrypt('secret'),
             
         ]);
+        DB::table('profils')->insert([
+            'name' => 'department'
+          ]);
+        
+          DB::table('fonctions')->insert([
+            'name' => fake()->jobTitle()
+          ]);
     }
 }

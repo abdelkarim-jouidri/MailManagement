@@ -9,3 +9,6 @@ class Profil extends Model
 {
     use HasFactory;
 }
+
+
+?>

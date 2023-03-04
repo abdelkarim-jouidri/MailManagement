@@ -18,6 +18,7 @@ class ProfilFactory extends Factory
     {
         return [
             //
+            'name'=>'department'
         ];
     }
 }

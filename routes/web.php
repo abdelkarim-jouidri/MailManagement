@@ -24,9 +24,9 @@ use App\Http\Controllers\ChangePassword;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 	Route::get('/register', [RegisterController::class, 'create'])->middleware('is_admin')->name('register');
-	Route::post('/register', [RegisterController::class, 'store'])->middleware('guest')->middleware('is_admin')->name('register.perform');
+	Route::post('/register', [RegisterController::class, 'store'])->middleware('is_admin')->name('register.perform');
 	Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
-	Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
+	Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
 	Route::get('/reset-password', [ResetPassword::class, 'show'])->middleware('guest')->name('reset-password');
 	Route::post('/reset-password', [ResetPassword::class, 'send'])->middleware('guest')->name('reset.perform');
 	Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('guest')->name('change-password');
