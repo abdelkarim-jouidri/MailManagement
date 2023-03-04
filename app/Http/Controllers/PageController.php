@@ -38,7 +38,7 @@ class PageController extends Controller
 
     public function signin()
     {
-        return view("pages.sign-in-static");
+        return view("auth.login");
     }
 
     public function signup()

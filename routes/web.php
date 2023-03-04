@@ -7,13 +7,12 @@ Route::get('/',function(){
     return view('welcome');
 });
 
-Route::get('/register',function(){
-    return view('users.register');
-});
-Route::post('/register',[AuthenticationController::class,'store']);
+Route::get('/register',[AuthenticationController::class,'create']);
+Route::post('/register',[AuthenticationController::class,'register']);
 Route::get('/login',[AuthenticationController::class,'login'])->name('login');
 Route::post('login',[AuthenticationController::class,'authenticate']);
 Route::post('logout',[AuthenticationController::class,'logout']);
+
 // Use ARgon dashboard
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
@@ -45,3 +44,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
+
+?>
