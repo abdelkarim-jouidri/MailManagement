@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserProfileController extends Controller
 {
@@ -40,5 +42,30 @@ class UserProfileController extends Controller
         //     'about' => $request->get('about')
         // ]);
         return back()->with('succes', 'Profile succesfully updated');
+    }
+
+    // show all users
+    public function showAllUsers(){
+        $users =DB::table('users')
+        ->join('profils', 'users.profil_id', '=', 'profils.id')
+        ->join('fonctions', 'users.fonction_id', '=', 'fonctions.id')
+        ->select('users.*', 'profils.name as profil','fonctions.name as fonction')
+        ->where('users.id','!=',Auth::id())
+        ->get();
+        return view('pages.user-management',['users'=>$users]);
+    }
+    public function changerRole($id,$is_admin){
+       $user=User::find($id);
+
+       if($is_admin==0){
+
+        $user->is_admin=1;
+       }else{
+        $user->is_admin=0;
+
+       }
+       $user->save();
+
+       return back()->with('succes_role', 'Role succesfully changed');
     }
 }

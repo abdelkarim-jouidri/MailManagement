@@ -22,12 +22,12 @@ class DatabaseSeeder extends Seeder
             'is_admin'=>1,
             'email' => 'admin@argon.com',
             'password' => bcrypt('secret'),
-            
+
         ]);
         DB::table('profils')->insert([
             'name' => 'department'
           ]);
-        
+
           DB::table('fonctions')->insert([
             'name' => fake()->jobTitle()
           ]);

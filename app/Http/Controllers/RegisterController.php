@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -19,9 +20,8 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        
-        
-        $credentials = $request->validate([
+
+            $credentials = $request->validate([
             'login' => 'required|alpha_num:ascii|min:2|unique:users',
             'nom' => 'required|max:255|min:3',
             'prenom' => 'required|max:255|min:3',
@@ -31,10 +31,36 @@ class RegisterController extends Controller
             'fonction_id'=>'required'
 
         ]);
-        $credentials['password'] = bcrypt($credentials['password']);
-        $user = User::create($credentials);
-        auth()->login($user);
-        
-        return redirect('/dashboard');
-    }
+
+            DB::table('users')->insert([
+                'login' =>$credentials['login'],
+                'nom' => $credentials['nom'],
+                'prenom' => $credentials['prenom'],
+                'email' => $credentials['email'],
+                'password' => bcrypt($credentials['password']),
+                'profil_id'=>$credentials['profil_id'],
+                'fonction_id'=>$credentials['fonction_id']
+
+            ]);
+
+
+
+            return back()->with('success',"L'utilisateur a été bien enregistré");
+
+        }
+
+
+
+    //     $credentials['password'] = bcrypt($credentials['password']);
+
+    //     $user=User::create($credentials);
+    //     $user->save();
+    //       // dd($credentials['password']);
+    //     // dd($credentials);
+    //     // dd($user);
+
+    //     // auth()->login($user);
+
+    //     // return redirect('/dashboard');
+    // }
 }

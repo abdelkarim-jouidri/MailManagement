@@ -30,9 +30,9 @@
                             </div>
                         @endif
                         <div class="card-body">
-                            <form method="POST" action="/register">
+                            <form role="form" method="POST" action="{{ route('register.perform') }}">
                                 @csrf
-
+                                @method('post')
                                 <div class="flex flex-col mb-3">
                                     <input type="text" name="login" class="form-control" placeholder="Nom d'utilisateur" aria-label="Name" value="{{ old('login') }}" >
                                     @error('login') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
@@ -70,8 +70,8 @@
                                         @endforeach
                                     </select>
                                     @error('fonction_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                </div>                               
-                                
+                                </div>
+
 
                                 <div class="text-center">
                                     <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Crée Compte</button>
