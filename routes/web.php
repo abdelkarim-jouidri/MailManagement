@@ -3,16 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 
-Route::get('/',function(){
-    return view('welcome');
-});
+// Route::get('/',function(){
+//     return view('welcome');
+// });
 
-Route::get('/register',[AuthenticationController::class,'create']);
-Route::post('/register',[AuthenticationController::class,'register']);
-Route::get('/login',[AuthenticationController::class,'login'])->name('login');
-Route::post('login',[AuthenticationController::class,'authenticate']);
-Route::post('logout',[AuthenticationController::class,'logout']);
-
+// Route::get('/register',[AuthenticationController::class,'create']);
+// Route::post('/register',[AuthenticationController::class,'register']);
+// Route::get('/login',[AuthenticationController::class,'login'])->name('login');
+// Route::post('login',[AuthenticationController::class,'authenticate']);
+// Route::post('logout',[AuthenticationController::class,'logout']);
 // Use ARgon dashboard
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
@@ -23,17 +22,28 @@ use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 
 
-Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
-	Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
-	Route::post('/register', [RegisterController::class, 'store'])->middleware('guest')->name('register.perform');
-	Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
-	Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
+    Route::get('/', function () {return redirect('/dashboard');});
+	Route::get('/register', [RegisterController::class, 'create'])->middleware('is_admin')->name('register');
+	Route::post('/register', [RegisterController::class, 'store'])->middleware('is_admin')->name('register.perform');
+	Route::get('/login', [LoginController::class, 'show'])->name('login');
+	Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
+
+
+
 	Route::get('/reset-password', [ResetPassword::class, 'show'])->middleware('guest')->name('reset-password');
 	Route::post('/reset-password', [ResetPassword::class, 'send'])->middleware('guest')->name('reset.perform');
 	Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('guest')->name('change-password');
 	Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 	Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
+
 Route::group(['middleware' => 'auth'], function () {
+//  user management
+Route::get('/user-management', [UserProfileController::class, 'showAllUsers'])->middleware('is_admin')->name('user-management');
+// change role
+Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'changerRole'])->name('change-role');
+
+
+
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
@@ -45,4 +55,3 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-?>

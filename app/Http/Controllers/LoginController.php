@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -19,23 +20,43 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->validate([
+    //         'login' => ['required'],
+    //         'password' => ['required'],
+    //     ]);
+
+    //     if (Auth::attempt($credentials)) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->intended('dashboard')->withErrors([
+    //             'success-login' => 'Success Login.',
+    //         ]);
+    //     }
+
+    //     return back()->withErrors([
+    //         'login' => 'Les informations d’identification fournies ne correspondent pas à nos dossiers.',
+    //     ]);
+    // }
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'name' => ['required', 'email'],
-            'password' => ['required'],
+            'login' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:5'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+      
+        if(Auth::attempt($credentials))
 
-            return redirect()->intended('dashboard');
+        {
+            return redirect('/dashboard');
         }
-
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'login' => 'Les informations d’identification fournies ne correspondent pas à nos dossiers.',
         ]);
     }
+
 
     public function logout(Request $request)
     {
