@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +15,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(1)->create();
+        DB::table('users')->insert([
+            'login' => 'admin',
+            'nom' => 'Admin',
+            'prenom' => 'Admin',
+            'is_admin'=>1,
+            'email' => 'admin@argon.com',
+            'password' => bcrypt('secret'),
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        ]);
+        DB::table('profils')->insert([
+            'name' => 'department'
+          ]);
+
+          DB::table('fonctions')->insert([
+            'name' => fake()->jobTitle()
+          ]);
     }
 }
