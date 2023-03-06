@@ -20,7 +20,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
-
+use App\Http\Controllers\CourrierArriveController;
+use App\Http\Controllers\CourrierDepartController;
+use App\Models\CourrierDepart;
 
     Route::get('/', function () {return redirect('/dashboard');});
 	Route::get('/register', [RegisterController::class, 'create'])->middleware('is_admin')->name('register');
@@ -39,6 +41,11 @@ use App\Http\Controllers\ChangePassword;
 Route::group(['middleware' => 'auth'], function () {
 //  user management
 Route::get('/user-management', [UserProfileController::class, 'showAllUsers'])->middleware('is_admin')->name('user-management');
+
+// courrier depart
+Route::get('/courrier-depart', [CourrierDepartController::class, 'index'])->name('courrier-depart');
+// courrier arrive
+Route::get('/courrier-arrive', [CourrierArriveController::class, 'index'])->name('courrier-arrive');
 // change role
 Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'changerRole'])->name('change-role');
 // delete user
