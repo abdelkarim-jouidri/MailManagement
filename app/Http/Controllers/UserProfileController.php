@@ -62,4 +62,20 @@ class UserProfileController extends Controller
 
        return back()->with('succes_role', 'Role succesfully changed');
     }
+
+    public function deleteUser(User $user){
+        $user->delete();
+        return back()->with("delete","utitlisateur a été bien supprimé");
+    }
+
+    public function showUpdateForm(User $user){
+        // dd($user);
+        $departement = DB::table('profils')->get();
+        $fonctions = DB::table('fonctions')->get();
+        return view('pages.user-update',['user'=>$user, "departement"=>$departement, "fonctions"=>$fonctions]);
+    }
+
+    public function updateUser(User $user){
+
+    }
 }

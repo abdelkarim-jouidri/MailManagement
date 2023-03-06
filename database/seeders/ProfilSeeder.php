@@ -17,7 +17,7 @@ class ProfilSeeder extends Seeder
     {
         //
         DB::table('profils')->insert([
-          'name' => 'department'
+          'name' => fake()->jobTitle()
         ]);
     }
 }
