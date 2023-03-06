@@ -7,18 +7,27 @@
 
     </div>
     <div>
-    <h3 class="text-decoration-underline text-dark">Register</h3>
+    <h3 class="text-decoration-underline text-dark">Création du compte</h3>
 
     </div>
     </div>
-<form method="POST" action="{{ route('register') }}">
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+<form method="POST" action="/register">
     @csrf
 
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
         <div class="col-md-8">
-            <input type="text" class="form-control" id="name" name="name" required autofocus>
+            <input type="text" class="form-control" id="name" name="name"  value="{{old('name')}}">
+            @error('name') 
+                <p class="text-danger m-0">{{$message}}</p>
+            @enderror
         </div>
     </div>
 
@@ -26,7 +35,10 @@
         <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
 
         <div class="col-md-8">
-            <input type="email" class="form-control" id="email" name="email" required autofocus>
+            <input type="email" class="form-control" id="email" name="email"  value="{{old('email')}}">
+            @error('email') 
+                <p class="text-danger m-0">{{$message}}</p>
+            @enderror
         </div>
     </div>
 
@@ -35,8 +47,10 @@
         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
         <div class="col-md-8">
-            <input type="password" class="form-control" id="password" name="password" required autofocus>
-
+            <input type="password" class="form-control" id="password" name="password"  >
+            @error('password') 
+                <p class="text-danger m-0">{{$message}}</p>
+            @enderror
         </div>
     </div>
 
@@ -46,8 +60,10 @@
         <label for="password_confirmation" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
         <div class="col-md-8">
-            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required autofocus>
-
+            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"  autofocus>
+            @error('password_confirmation') 
+                <p class="text-danger m-0">{{$message}}</p>
+            @enderror
         </div>
     </div>
 
