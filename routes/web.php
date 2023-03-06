@@ -54,3 +54,5 @@ Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'chang
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
+
+
