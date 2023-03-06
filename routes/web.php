@@ -41,6 +41,10 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/user-management', [UserProfileController::class, 'showAllUsers'])->middleware('is_admin')->name('user-management');
 // change role
 Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'changerRole'])->name('change-role');
+// delete user
+Route::get('/delete/{user}', [UserProfileController::class, 'deleteUser'])->name('delete-user');
+Route::get('/update/{user}', [UserProfileController::class, 'showUpdateForm']);
+Route::post('/update/{user}', [UserProfileController::class, 'updateUser']);
 
 
 
@@ -54,5 +58,4 @@ Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'chang
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
-
 

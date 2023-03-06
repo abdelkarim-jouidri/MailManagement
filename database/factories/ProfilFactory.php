@@ -18,7 +18,7 @@ class ProfilFactory extends Factory
     {
         return [
             //
-            'name'=>'department'
+            'name'=>fake()->jobTitle()
         ];
     }
 }

@@ -73,8 +73,8 @@
 
                                     <td class="align-middle text-end">
                                         <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                            <a title="supprimer" href="!#" class="text-sm btn btn-warning font-weight-bold mb-0 me-1 "><i class="far fa-edit " aria-hidden="true"></i></a>
-                                            <a title="editer" href="!#" class="text-sm btn btn-danger font-weight-bold mb-0 me-1"><i class="far fa-trash-alt " aria-hidden="true"></i></a>
+                                            <a title="editer" href="/update/{{$user->id}}" class="text-sm btn btn-warning font-weight-bold mb-0 me-1 "><i class="far fa-edit " aria-hidden="true"></i></a>
+                                            <a title="supprimer" href="/delete/{{$user->id}}" class="text-sm btn btn-danger font-weight-bold mb-0 me-1"><i class="far fa-trash-alt " aria-hidden="true"></i></a>
                                             @if($user->is_admin==1)
                                             <a title="changer_role" href="{{ route('change-role',['id'=>$user->id,'is_admin'=>$user->is_admin]) }}"  class="text-sm btn btn-dark font-weight-bold mb-0 "><i class="fa fa-lock" aria-hidden="true"></i></a>
                                             @else
@@ -95,4 +95,12 @@
             </div>
         </div>
     </div>
+    @if(session('delete'))
+                            <div class="d-flex justify-content-center">
+                                <div class="alert alert-success w-75 fs d-flex justify-content-between" role="alert">
+                                    <small class="text-white fw-bold">{{ session('delete') }}</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+    @endif
 @endsection
