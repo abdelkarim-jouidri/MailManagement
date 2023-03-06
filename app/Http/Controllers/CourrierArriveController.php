@@ -15,7 +15,8 @@ class CourrierArriveController extends Controller
      */
     public function index()
     {
-        //
+        return 'courrier Arrive';
+
     }
 
     /**
