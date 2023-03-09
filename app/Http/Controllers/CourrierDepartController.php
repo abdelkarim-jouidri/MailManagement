@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourrierDepart;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCourrierDepartRequest;
 use App\Http\Requests\UpdateCourrierDepartRequest;
 
@@ -15,7 +17,20 @@ class CourrierDepartController extends Controller
      */
     public function index()
     {
-        return 'courrier depart';
+        $courrier_depart =DB::table('courrier_departs')
+        // ->join('type_exp_dest', 'courrier_depart.type_exp_dest_id', '=', 'courrier_depart.id')
+        // ->join('destination_arrive', 'courrier_depart.destination_arrive_id', '=', 'destination_arrive.id')
+        // ->join('mode_courrier', 'courrier_depart.mode_courrier_id', '=', 'mode_courrier.id')
+        // ->join('type_courrier', 'courrier_depart.type_courrier_id', '=', 'type_courrier.id')
+        // ->join('nature_courrier', 'courrier_depart.nature_courrier_id', '=', 'nature_courrier.id')
+        // ->join('utilisateur', 'courrier_depart.utilisateur_id', '=', 'utilisateur.id')
+        // ->join('mission', 'courrier_depart.mission_id', '=', 'mission.id')
+        // ->join('ministre', 'courrier_depart.ministre_id', '=', 'ministre.id')
+        // ->join('etablissement', 'courrier_depart.etablissement_id', '=', 'etablissement.id')
+        // ->join('pays', 'courrier_depart.pays_id', '=', 'pays.id')
+        ->select('courrier_departs.*')
+        ->get();
+        return view('pages.courrier_depart',['courrier_depart'=>$courrier_depart]);
     }
 
     /**
