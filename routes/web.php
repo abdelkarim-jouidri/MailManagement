@@ -44,6 +44,10 @@ Route::get('/user-management', [UserProfileController::class, 'showAllUsers'])->
 
 // courrier depart
 Route::get('/courrier-depart', [CourrierDepartController::class, 'index'])->name('courrier-depart');
+// add courrier depart
+Route::post('/ajouter-courrier', [CourrierDepartController::class, 'store'])->name('ajouter.courrier-depart');
+
+
 // courrier arrive
 Route::get('/courrier-arrive', [CourrierArriveController::class, 'index'])->name('courrier-arrive');
 // change role

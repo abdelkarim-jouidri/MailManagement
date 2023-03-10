@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CourrierDepart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreCourrierDepartRequest;
 use App\Http\Requests\UpdateCourrierDepartRequest;
 
@@ -49,9 +50,10 @@ class CourrierDepartController extends Controller
      * @param  \App\Http\Requests\StoreCourrierDepartRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCourrierDepartRequest $request)
+    public function store(Request $request)
     {
-        //
+
+    dd($request);
     }
 
     /**

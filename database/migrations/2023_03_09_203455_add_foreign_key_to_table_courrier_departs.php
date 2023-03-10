@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreign('type_courrier_id') ->references('id')->on('type_courriers');
             $table->foreign('nature_courrier_id') ->references('id')->on('nature_courriers');
             $table->foreign('utilisateur_id') ->references('id')->on('users');
-         
             $table->foreign('pays_id') ->references('id')->on('pays');
         });
     }
