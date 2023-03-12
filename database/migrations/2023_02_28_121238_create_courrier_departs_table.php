@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('courrier_departs', function (Blueprint $table) {
-            $table->integer('id');
+            $table->id();
             $table->string('number');
             $table->dateTime('date_envoie');
             $table->text('objet');
