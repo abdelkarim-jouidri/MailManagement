@@ -9,6 +9,7 @@ use App\Rules\CompareOldPassword;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 
 class UserProfileController extends Controller
@@ -61,5 +62,35 @@ class UserProfileController extends Controller
        $user->save();
 
        return back()->with('succes_role', 'Role succesfully changed');
+    }
+
+    public function deleteUser(User $user){
+        $user->delete();
+        return back()->with("delete","utitlisateur a été bien supprimé");
+    }
+
+    public function showUpdateForm(User $user){
+        // Debugbar::info($user);
+        $departement = DB::table('profils')->get();
+        $fonctions = DB::table('fonctions')->get();
+        return view('pages.user-update-copy',['user'=>$user, "departement"=>$departement, "fonctions"=>$fonctions]);
+    }
+
+    public function updateUser(Request $request , User $user){
+        
+        // dd($request);
+        $fields = $request->validate([
+            'login' => 'required|alpha_num:ascii|min:2',
+            'nom' => 'required|max:255|min:3',
+            'prenom' => 'required|max:255|min:3',
+            'email' => 'required|email|max:255',
+            'profil_id'=>'required',
+            'fonction_id'=>'required',
+            'new_password' => ['nullable','min:5','different:old_password'],
+            'confirm_password' => ['nullable','min:5','same:new_password'],
+        ]);
+
+        $user->update($fields);
+        return back();
     }
 }

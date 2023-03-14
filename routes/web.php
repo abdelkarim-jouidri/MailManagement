@@ -52,6 +52,10 @@ Route::post('/ajouter-courrier', [CourrierDepartController::class, 'store'])->na
 Route::get('/courrier-arrive', [CourrierArriveController::class, 'index'])->name('courrier-arrive');
 // change role
 Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'changerRole'])->name('change-role');
+// delete user
+Route::get('/delete/{user}', [UserProfileController::class, 'deleteUser'])->name('delete-user');
+Route::get('/update/{user}', [UserProfileController::class, 'showUpdateForm']);
+Route::put('/update/{user}', [UserProfileController::class, 'updateUser']);
 
 
 
@@ -65,5 +69,4 @@ Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'chang
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
-
 
