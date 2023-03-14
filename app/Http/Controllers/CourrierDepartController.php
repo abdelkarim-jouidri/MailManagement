@@ -20,17 +20,18 @@ class CourrierDepartController extends Controller
     public function index()
     {
         $courrier_depart =DB::table('courrier_departs')
-        // ->join('type_exp_dest', 'courrier_depart.type_exp_dest_id', '=', 'courrier_depart.id')
-        // ->join('destination_arrive', 'courrier_depart.destination_arrive_id', '=', 'destination_arrive.id')
-        // ->join('mode_courrier', 'courrier_depart.mode_courrier_id', '=', 'mode_courrier.id')
-        // ->join('type_courrier', 'courrier_depart.type_courrier_id', '=', 'type_courrier.id')
-        // ->join('nature_courrier', 'courrier_depart.nature_courrier_id', '=', 'nature_courrier.id')
-        // ->join('utilisateur', 'courrier_depart.utilisateur_id', '=', 'utilisateur.id')
-        // ->join('mission', 'courrier_depart.mission_id', '=', 'mission.id')
-        // ->join('ministre', 'courrier_depart.ministre_id', '=', 'ministre.id')
-        // ->join('etablissement', 'courrier_depart.etablissement_id', '=', 'etablissement.id')
-        // ->join('pays', 'courrier_depart.pays_id', '=', 'pays.id')
-        ->select('courrier_departs.*')
+        ->join('type_exp_dests', 'courrier_departs.type_exp_dest_id', '=', 'type_exp_dests.id')
+        ->join('destination_arrives', 'courrier_departs.destination_arrive_id', '=', 'destination_arrives.id')
+        ->join('mode_courriers', 'courrier_departs.mode_courrier_id', '=', 'mode_courriers.id')
+        ->join('type_courriers', 'courrier_departs.type_courrier_id', '=', 'type_courriers.id')
+        ->join('nature_courriers', 'courrier_departs.nature_courrier_id', '=', 'nature_courriers.id')
+        ->select(
+        'courrier_departs.*',
+        'nature_courriers.name as nature',
+        'destination_arrives.name as destination',
+        'mode_courriers.name as mode',
+        'type_courriers.name as type',
+        )
         ->get();
         return view('pages.courrier_depart',['courrier_depart'=>$courrier_depart]);
     }
@@ -68,12 +69,13 @@ class CourrierDepartController extends Controller
         ]);
 
 
-        $pdfFile = $request->file('pdf_file');
-
-        if ($pdfFile) {
-            $pdfFileName = $pdfFile->getClientOriginalName();
-            Storage::putFileAs('pdf', $pdfFile, $pdfFileName);
-           $pdf_file= $pdfFile->getContent();
+        // $pdfFile = $request->file('pdf_file');
+        //     $pdfFileName = $pdfFile->getClientOriginalName();
+        //     Storage::putFileAs('pdf', $pdfFile, $pdfFileName);
+        //    $pdf_file= $pdfFile->getContent();
+        $pdf_file =$request->pdf_file;
+        $pdf_file_name=time().'.'.$pdf_file->getClientOriginalExtension();
+        $request->pdf_file->move('assets',$pdf_file_name);
 
            DB::table('courrier_departs')->insert([
 
@@ -86,7 +88,7 @@ class CourrierDepartController extends Controller
             'etat_courrier_id'=>$credentials['etat_courrier_id'],
             'mode_courrier_id'=>$credentials['mode_courrier_id'],
             'destination_arrive_id'=>$credentials['destination_arrive_id'],
-            'pdf_file'=>$credentials['pdf_file'],
+            'pdf_file'=>$pdf_file_name,
             'utilisateur_id'=>Auth::user()->id,
 
             'type_courrier_id'=>1,
@@ -97,12 +99,7 @@ class CourrierDepartController extends Controller
             'is_lu'=>0,
         ]);
 
-        return 'success';
-
-        } else {
-            return 'error in pdf';
-        }
-    dd($request);
+        return redirect()->back();
     }
 
     /**

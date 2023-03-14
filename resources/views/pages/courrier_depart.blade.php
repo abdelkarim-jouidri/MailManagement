@@ -24,50 +24,46 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Number</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date_Envoie</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dest_Arrive</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Utilisateur</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">is_rep</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">is_lu</th>
-
-
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Envoie</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Objet</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nature</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Destination</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PDF</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Action</th>
 
                             </tr>
                         </thead>
                         <tbody>
 
-                            {{-- @foreach ( $users as $user ) --}}
+                            @foreach ($courrier_depart as $courrier_dept )
 
                             <tr>
 
                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">1</p>
+                                    <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->id }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">1</p>
+                                    <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->number }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">1</p>
+                                    <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->date_envoie }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">1</p>
+                                    <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->objet }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">1</p>
+                                    <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->type }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">1</p>
+                                    <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->nature }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">1</p>
+                                    <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->destination }}</p>
                                 </td>
-
-
-
-
-
-
+                                <td>
+                                    <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->pdf_file }}</p>
+                                </td>
 
                                 <td class="align-middle text-end">
                                     <div class="d-flex px-3 py-1 justify-content-center align-items-center">
@@ -79,7 +75,7 @@
                                 </td>
 
                             </tr>
-
+                        @endforeach
 
                         </tbody>
                     </table>
