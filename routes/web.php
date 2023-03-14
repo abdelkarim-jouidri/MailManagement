@@ -51,7 +51,7 @@ Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'chang
 // delete user
 Route::get('/delete/{user}', [UserProfileController::class, 'deleteUser'])->name('delete-user');
 Route::get('/update/{user}', [UserProfileController::class, 'showUpdateForm']);
-Route::post('/update/{user}', [UserProfileController::class, 'updateUser']);
+Route::put('/update/{user}', [UserProfileController::class, 'updateUser']);
 
 
 

@@ -15,6 +15,7 @@
                 <div class="card">
                     <form role="form" method="POST" action='/update/{{$user->id}}' enctype="multipart/form-data">
                         @csrf
+                        @method('put')
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
                                 <p class="mb-0">Modification des informations de {{$user->nom}}</p>
@@ -25,6 +26,16 @@
 
                             <div class="row">
                                 <div class="col-md-12">
+                                <div class="form-group">
+                                        <label for="login" class="form-control-label">login</label>
+                                        <input class="form-control @error('login') is-invalid @enderror" type="text" name="login" value="{{$user->login}}" required autofocus autocomplete="off">
+
+                                        @error('login')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    </div>
                                 <div class="form-group">
                                         <label for="nom" class="form-control-label">nom</label>
                                         <input class="form-control @error('nom') is-invalid @enderror" type="text" name="nom" value="{{$user->nom}}" required autofocus autocomplete="off">
@@ -65,11 +76,11 @@
                                         @endforeach
                                         </select>
                                         @error('profil_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                    </div>
+                                </div>
 
                                     <div class="flex flex-col mb-3">
                                         <label for="">Fonctions</label>
-                                        <select class="form-control" id="profil" name="profil_id">
+                                        <select class="form-control" id="profil" name="fonction_id">
                                             <option  value="">-- Choisir une fonction --</option>
                                             
                                             @foreach ($fonctions  as $fct )
@@ -80,7 +91,7 @@
                                     </div>
                                 <div class="form-group">
                                     <label for="old_password" class="form-control-label">Old Password</label>
-                                    <input class="form-control @error('old_password') is-invalid @enderror" type="password" name="old_password" value="" required autofocus autocomplete="off">
+                                    <input class="form-control @error('old_password') is-invalid @enderror" type="password" name="old_password" value=""  autofocus autocomplete="off">
 
                                     @error('old_password')
                                     <span class="invalid-feedback" role="alert">
@@ -93,7 +104,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="new_password" class="form-control-label">New Password</label>
-                                    <input class="form-control @error('new_password') is-invalid @enderror" type="password" name="new_password" value="" required autocomplete="off">
+                                    <input class="form-control @error('new_password') is-invalid @enderror" type="password" name="new_password" value=""  autocomplete="off">
 
                                     @error('new_password')
                                     <span class="invalid-feedback" role="alert">
@@ -107,7 +118,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="confirm_password" class="form-control-label">Confirm New Password</label>
-                                        <input class="form-control @error('confirm_password') is-invalid @enderror" type="password" name="confirm_password" value="" required autocomplete="off">
+                                        <input class="form-control @error('confirm_password') is-invalid @enderror" type="password" name="confirm_password" value=""  autocomplete="off">
                                         @error('confirm_password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

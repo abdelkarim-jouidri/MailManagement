@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class ProfilSeeder extends Seeder
+class FonctionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class ProfilSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('fonctions')->insert([
+            'name' => fake()->jobTitle()
+          ]);
         //
-        DB::table('profils')->insert([
-          'name' => fake()->company()
-        ]);
     }
 }
