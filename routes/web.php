@@ -46,7 +46,8 @@ Route::get('/user-management', [UserProfileController::class, 'showAllUsers'])->
 Route::get('/courrier-depart', [CourrierDepartController::class, 'index'])->name('courrier-depart');
 // add courrier depart
 Route::post('/ajouter-courrier', [CourrierDepartController::class, 'store'])->name('ajouter.courrier-depart');
-
+// download pdf
+Route::get('/download_pdf/{file}', [CourrierDepartController::class, 'download_pdf']);
 
 // courrier arrive
 Route::get('/courrier-arrive', [CourrierArriveController::class, 'index'])->name('courrier-arrive');

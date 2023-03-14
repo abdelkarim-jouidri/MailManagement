@@ -102,6 +102,12 @@ class CourrierDepartController extends Controller
         return redirect()->back();
     }
 
+    public function download_pdf(Request $request,$file){
+
+    return response()->download(public_path('assets/'.$file));
+
+    }
+
     /**
      * Display the specified resource.
      *
