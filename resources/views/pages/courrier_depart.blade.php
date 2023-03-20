@@ -13,7 +13,7 @@
 
 
                 {{-- @if(Auth::user()->is_admin==1) --}}
-                <a type="button" data-bs-toggle="modal" data-bs-target="#ajouter_courrier" title="ajouter_courrier_depart" href="#"> <i class="fa fa-plus"></i> </a>
+                <a type="button" data-bs-toggle="modal" data-bs-target="#ajouter_courrier_depart" title="ajouter_courrier_depart" href="#"> <i class="fa fa-plus"></i> </a>
                 {{-- @endif --}}
 
             </div>
@@ -36,9 +36,17 @@
                         </thead>
                         <tbody>
 
+
                             @foreach ($courrier_depart as $courrier_dept )
 
-                            <tr class="text-center">
+                            @if($courrier_dept->is_lu == 0)
+
+                            <tr class="text-center table-row cursor-pointer  bg-info" data-href="{{ route('courrier_dept.show', ['id' => $courrier_dept->id]) }}">
+                             @else
+                            <tr class="text-center table-row cursor-pointer"  data-href="{{ route('courrier_dept.show', ['id' => $courrier_dept->id]) }}">
+
+                             @endif
+
 
                                 <td>
                                     <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->id }}</p>
@@ -70,8 +78,8 @@
                                 <td class="align-middle text-end">
                                     <div class="d-flex px-3 py-1 justify-content-center align-items-center">
                                         <a title="view" href="#" class="text-sm btn btn-success font-weight-bold mb-0 me-1 "><i class="far fa-eye " aria-hidden="true"></i></a>
-                                        <a title="supprimer" href="#" class="text-sm btn btn-warning font-weight-bold mb-0 me-1 "><i class="far fa-edit " aria-hidden="true"></i></a>
-                                        <a title="editer" href="#" class="text-sm btn btn-danger font-weight-bold mb-0 me-1"><i class="far fa-trash-alt " aria-hidden="true"></i></a>
+                                        <a title="editer"  href="#" class="text-sm btn btn-warning font-weight-bold mb-0 me-1 "><i class="far fa-edit " aria-hidden="true"></i></a>
+                                        <a  title="supprimer" href="#" class="text-sm btn btn-danger font-weight-bold mb-0 me-1"><i class="far fa-trash-alt " aria-hidden="true"></i></a>
 
 
                                     </div>
@@ -90,23 +98,24 @@
 
 {{-- MOdal add Courrier Depart --}}
 
-<div class="modal fade" id="ajouter_courrier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="ajouter_courrier_depart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="text-center text-decoration-underline mt-2 fw-bold">
                 <h5 class="modal-title" id="exampleModalLabel">Ajouter Courrier Depart</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form role="form" method="POST" action="{{ route('ajouter.courrier-depart') }}" enctype="multipart/form-data">
+                <form id="my-form " role="form" method="POST" action="{{ route('ajouter.courrier-depart') }}" enctype="multipart/form-data">
                     @csrf
                     @method('post')
                     <div class="container">
+
                         {{-- Num D'ordre --}}
                         <div class="row flex align-items-center ">
                             <div class="col-4">
                                 <label for="numero_ordre">Numéro d'ordre :</label>
-                            </div>
+                          </div>
                             <div class="col-8">
                                 <input type="text" value="{{
                                now()->year.''.rand(10000,99999)
@@ -122,7 +131,8 @@
                                 <label for="date_envoie">Date Envoie :</label>
                             </div>
                             <div class="col-8">
-                                <input type="datetime-local" class="form-control" id="date_envoie" name="date_envoie" min="{{ date('Y-m-d\TH:i', strtotime('+1 hour')) }}" required>
+                                <input type="datetime-local" class="form-control" id="date_envoie" name="date_envoie" min="{{ date('Y-m-d\TH:i', strtotime('+1 minute')) }}" required>
+                                @error('date_envoie') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
@@ -137,6 +147,8 @@
                                     <option disabled selected>type_exp_dest</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('type_exp_dest_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
                             </div>
 
                         </div>
@@ -150,6 +162,8 @@
                                     <option disabled selected>Nature courrier</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('nature_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
                             </div>
 
                         </div>
@@ -159,14 +173,15 @@
                                 <label for="objet">Objet :</label>
                             </div>
                             <div class="col-8">
-                                <select class="form-select form-select-sm" name="objet" id="objet" aria-label=".form-select-sm example" required>
-                                    <option disabled selected> Select Objet</option>
-                                    <option value="1">One</option>
-                                </select>
+                                <textarea name="objet" class="form-control" id="objet" rows="3" required></textarea>
+                                @error('objet') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
                         </div>
+
+
+
                         {{-- Détail du courrier --}}
                         <div class="row flex align-items-center my-3">
                             <div class="col-4">
@@ -174,6 +189,7 @@
                             </div>
                             <div class="col-8">
                                 <textarea name="courrier_detail" class="form-control" id="courrier_detail" rows="3" required></textarea>
+                                @error('courrier_detail') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
@@ -188,6 +204,7 @@
                                     <option disabled selected>etat_courrier</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('etat_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
@@ -202,6 +219,7 @@
                                     <option disabled selected>mode_courrier</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('mode_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
@@ -216,6 +234,7 @@
                                     <option disabled selected>destination_arrive</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('destination_arrive_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
@@ -247,5 +266,15 @@
         </div>
     </div>
 </div>
+<script>
+
+    const tableRows = document.querySelectorAll('.table-row');
+    tableRows.forEach(row => {
+        row.addEventListener('click', () => {
+            const url = row.dataset.href;
+            window.location.href = url;
+        });
+    });
+</script>
 @endsection
 
