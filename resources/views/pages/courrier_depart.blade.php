@@ -78,8 +78,8 @@
                                 <td class="align-middle text-end">
                                     <div class="d-flex px-3 py-1 justify-content-center align-items-center">
                                         <a title="view" href="#" class="text-sm btn btn-success font-weight-bold mb-0 me-1 "><i class="far fa-eye " aria-hidden="true"></i></a>
-                                        <a title="supprimer" href="#" class="text-sm btn btn-warning font-weight-bold mb-0 me-1 "><i class="far fa-edit " aria-hidden="true"></i></a>
-                                        <a title="editer" href="#" class="text-sm btn btn-danger font-weight-bold mb-0 me-1"><i class="far fa-trash-alt " aria-hidden="true"></i></a>
+                                        <a title="editer"  href="#" class="text-sm btn btn-warning font-weight-bold mb-0 me-1 "><i class="far fa-edit " aria-hidden="true"></i></a>
+                                        <a  title="supprimer" href="#" class="text-sm btn btn-danger font-weight-bold mb-0 me-1"><i class="far fa-trash-alt " aria-hidden="true"></i></a>
 
 
                                     </div>
@@ -131,7 +131,7 @@
                                 <label for="date_envoie">Date Envoie :</label>
                             </div>
                             <div class="col-8">
-                                <input type="datetime-local" class="form-control" id="date_envoie" name="date_envoie" min="{{ date('Y-m-d\TH:i', strtotime('+1 hour')) }}" required>
+                                <input type="datetime-local" class="form-control" id="date_envoie" name="date_envoie" min="{{ date('Y-m-d\TH:i', strtotime('+1 minute')) }}" required>
 
                             </div>
 
@@ -168,10 +168,8 @@
                                 <label for="objet">Objet :</label>
                             </div>
                             <div class="col-8">
-                                <select class="form-select form-select-sm" name="objet" id="objet" aria-label=".form-select-sm example" required>
-                                    <option disabled selected> Select Objet</option>
-                                    <option value="1">One</option>
-                                </select>
+                                <textarea name="objet" class="form-control" id="objet" rows="3" required></textarea>
+                                @error('objet') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
@@ -186,6 +184,7 @@
                             </div>
                             <div class="col-8">
                                 <textarea name="courrier_detail" class="form-control" id="courrier_detail" rows="3" required></textarea>
+                                @error('courrier_detail') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
