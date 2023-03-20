@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CourrierDepart extends Model
 {
     use HasFactory;
+
+    protected $fillable=['is_lu'];
 }

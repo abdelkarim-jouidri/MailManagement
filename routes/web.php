@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\PDFController;
+
+
 
 // Route::get('/',function(){
 //     return view('welcome');
@@ -44,6 +47,11 @@ Route::get('/user-management', [UserProfileController::class, 'showAllUsers'])->
 
 // courrier depart
 Route::get('/courrier-depart', [CourrierDepartController::class, 'index'])->name('courrier-depart');
+// changer_visibilite (courrier depart)
+Route::get('/view_courrier_depart/{id}', [CourrierDepartController::class, 'show'])->name('courrier_dept.show');
+// generate pdf  of view courrier depart
+Route::get('/pdf_courrier_depart/{id}', [PDFController::class, 'pdf_courrier_depart'])->name('pdf_courrier_depart');
+
 // add courrier depart
 Route::post('/ajouter-courrier', [CourrierDepartController::class, 'store'])->name('ajouter.courrier-depart');
 // download pdf

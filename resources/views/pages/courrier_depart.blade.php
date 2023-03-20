@@ -36,9 +36,17 @@
                         </thead>
                         <tbody>
 
+
                             @foreach ($courrier_depart as $courrier_dept )
 
-                            <tr class="text-center">
+                            @if($courrier_dept->is_lu == 0)
+
+                            <tr class="text-center table-row cursor-pointer  bg-info" data-href="{{ route('courrier_dept.show', ['id' => $courrier_dept->id]) }}">
+                             @else
+                            <tr class="text-center table-row cursor-pointer"  data-href="{{ route('courrier_dept.show', ['id' => $courrier_dept->id]) }}">
+
+                             @endif
+
 
                                 <td>
                                     <p class="text-sm font-weight-bold mb-0">{{ $courrier_dept ->id }}</p>
@@ -91,22 +99,23 @@
 {{-- MOdal add Courrier Depart --}}
 
 <div class="modal fade" id="ajouter_courrier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="text-center text-decoration-underline mt-2 fw-bold">
                 <h5 class="modal-title" id="exampleModalLabel">Ajouter Courrier Depart</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form role="form" method="POST" action="{{ route('ajouter.courrier-depart') }}" enctype="multipart/form-data">
+                <form id="my-form " role="form" method="POST" action="{{ route('ajouter.courrier-depart') }}" enctype="multipart/form-data">
                     @csrf
                     @method('post')
                     <div class="container">
+
                         {{-- Num D'ordre --}}
                         <div class="row flex align-items-center ">
                             <div class="col-4">
                                 <label for="numero_ordre">Numéro d'ordre :</label>
-                            </div>
+                          </div>
                             <div class="col-8">
                                 <input type="text" value="{{
                                now()->year.''.rand(10000,99999)
@@ -167,6 +176,9 @@
                             </div>
 
                         </div>
+
+
+
                         {{-- Détail du courrier --}}
                         <div class="row flex align-items-center my-3">
                             <div class="col-4">
@@ -247,5 +259,15 @@
         </div>
     </div>
 </div>
+<script>
+
+    const tableRows = document.querySelectorAll('.table-row');
+    tableRows.forEach(row => {
+        row.addEventListener('click', () => {
+            const url = row.dataset.href;
+            window.location.href = url;
+        });
+    });
+</script>
 @endsection
 

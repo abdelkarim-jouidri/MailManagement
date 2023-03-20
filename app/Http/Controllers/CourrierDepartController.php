@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use Illuminate\Http\Request;
 use App\Models\CourrierDepart;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreCourrierDepartRequest;
 use App\Http\Requests\UpdateCourrierDepartRequest;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 class CourrierDepartController extends Controller
 {
@@ -69,13 +72,9 @@ class CourrierDepartController extends Controller
         ]);
 
 
-        // $pdfFile = $request->file('pdf_file');
-        //     $pdfFileName = $pdfFile->getClientOriginalName();
-        //     Storage::putFileAs('pdf', $pdfFile, $pdfFileName);
-        //    $pdf_file= $pdfFile->getContent();
         $pdf_file =$request->pdf_file;
         $pdf_file_name=time().'.'.$pdf_file->getClientOriginalExtension();
-        $request->pdf_file->move('assets',$pdf_file_name);
+        $request->pdf_file->move('assets/pdf_courrier_dept',$pdf_file_name);
 
            DB::table('courrier_departs')->insert([
 
@@ -99,12 +98,12 @@ class CourrierDepartController extends Controller
             'is_lu'=>0,
         ]);
 
-        return redirect()->back();
+       return redirect()->back();
     }
 
     public function download_pdf(Request $request,$file){
 
-    return response()->download(public_path('assets/'.$file));
+    return response()->download(public_path('assets/pdf_courrier_dept/'.$file));
 
     }
 
@@ -114,9 +113,41 @@ class CourrierDepartController extends Controller
      * @param  \App\Models\CourrierDepart  $courrierDepart
      * @return \Illuminate\Http\Response
      */
-    public function show(CourrierDepart $courrierDepart)
+    public function show($id)
     {
-        //
+       // get courrier depart
+        $courrier_depart = CourrierDepart::find($id)
+        ->join('type_exp_dests', 'courrier_departs.type_exp_dest_id', '=', 'type_exp_dests.id')
+        ->join('destination_arrives', 'courrier_departs.destination_arrive_id', '=', 'destination_arrives.id')
+        ->join('mode_courriers', 'courrier_departs.mode_courrier_id', '=', 'mode_courriers.id')
+        ->join('type_courriers', 'courrier_departs.type_courrier_id', '=', 'type_courriers.id')
+        ->join('nature_courriers', 'courrier_departs.nature_courrier_id', '=', 'nature_courriers.id')
+        ->select(
+        'courrier_departs.*',
+        'nature_courriers.name as nature',
+        'destination_arrives.name as destination',
+        'mode_courriers.name as mode',
+        'type_courriers.name as type',
+        'type_exp_dests.name as type_exp_dest',
+        )
+        ->where('courrier_departs.id', $id)
+        ->get();
+
+        // dd($courrier_depart);
+
+
+        if($courrier_depart->first()->is_lu==0){
+            $courrier_depart->first()->update([
+                'is_lu'=>1
+            ]);
+        }
+
+        return view('pages.show_courrier_depart',['courrier_depart'=>$courrier_depart]);
+
+
+
+
+
     }
 
     /**
@@ -152,4 +183,5 @@ class CourrierDepartController extends Controller
     {
         //
     }
+
 }
