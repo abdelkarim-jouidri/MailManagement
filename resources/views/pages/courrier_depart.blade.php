@@ -13,7 +13,7 @@
 
 
                 {{-- @if(Auth::user()->is_admin==1) --}}
-                <a type="button" data-bs-toggle="modal" data-bs-target="#ajouter_courrier" title="ajouter_courrier_depart" href="#"> <i class="fa fa-plus"></i> </a>
+                <a type="button" data-bs-toggle="modal" data-bs-target="#ajouter_courrier_depart" title="ajouter_courrier_depart" href="#"> <i class="fa fa-plus"></i> </a>
                 {{-- @endif --}}
 
             </div>
@@ -98,7 +98,7 @@
 
 {{-- MOdal add Courrier Depart --}}
 
-<div class="modal fade" id="ajouter_courrier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ajouter_courrier_depart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="text-center text-decoration-underline mt-2 fw-bold">
@@ -132,6 +132,7 @@
                             </div>
                             <div class="col-8">
                                 <input type="datetime-local" class="form-control" id="date_envoie" name="date_envoie" min="{{ date('Y-m-d\TH:i', strtotime('+1 minute')) }}" required>
+                                @error('date_envoie') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
@@ -146,6 +147,8 @@
                                     <option disabled selected>type_exp_dest</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('type_exp_dest_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
                             </div>
 
                         </div>
@@ -159,6 +162,8 @@
                                     <option disabled selected>Nature courrier</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('nature_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
                             </div>
 
                         </div>
@@ -199,6 +204,7 @@
                                     <option disabled selected>etat_courrier</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('etat_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
@@ -213,6 +219,7 @@
                                     <option disabled selected>mode_courrier</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('mode_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
@@ -227,6 +234,7 @@
                                     <option disabled selected>destination_arrive</option>
                                     <option value="1">One</option>
                                 </select>
+                                @error('destination_arrive_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 

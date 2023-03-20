@@ -62,7 +62,7 @@ class CourrierDepartController extends Controller
             'date_envoie' => 'required|date|after:today',
             'type_exp_dest_id' => 'required',
             'nature_courrier_id' => 'required',
-            'objet' => 'required',
+            'objet' => 'required|min:5|max:255',
             'courrier_detail' => 'required|min:5',
             'etat_courrier_id'=>'required',
             'mode_courrier_id'=>'required',
