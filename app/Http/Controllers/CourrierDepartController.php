@@ -181,7 +181,8 @@ class CourrierDepartController extends Controller
      */
     public function destroy(CourrierDepart $courrierDepart)
     {
-        //
+        $courrierDepart->delete();
+        return back()->with('delete','Courrier a été bien supprimé');
     }
 
 }

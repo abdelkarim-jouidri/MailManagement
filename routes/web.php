@@ -54,6 +54,9 @@ Route::get('/pdf_courrier_depart/{id}', [PDFController::class, 'pdf_courrier_dep
 
 // add courrier depart
 Route::post('/ajouter-courrier', [CourrierDepartController::class, 'store'])->name('ajouter.courrier-depart');
+
+//supprimer courier depart
+Route::get('/supprimer_courier_depart/{courrierDepart}',[CourrierDepartController::class,'destroy']);
 // download pdf
 Route::get('/download_pdf/{file}', [CourrierDepartController::class, 'download_pdf']);
 

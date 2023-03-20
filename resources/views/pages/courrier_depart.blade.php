@@ -79,7 +79,7 @@
                                     <div class="d-flex px-3 py-1 justify-content-center align-items-center">
                                         <a title="view" href="#" class="text-sm btn btn-success font-weight-bold mb-0 me-1 "><i class="far fa-eye " aria-hidden="true"></i></a>
                                         <a title="editer"  href="#" class="text-sm btn btn-warning font-weight-bold mb-0 me-1 "><i class="far fa-edit " aria-hidden="true"></i></a>
-                                        <a  title="supprimer" href="#" class="text-sm btn btn-danger font-weight-bold mb-0 me-1"><i class="far fa-trash-alt " aria-hidden="true"></i></a>
+                                        <a  title="supprimer" href="/supprimer_courier_depart/{{$courrier_dept->id}}" class="text-sm btn btn-danger font-weight-bold mb-0 me-1"><i class="far fa-trash-alt " aria-hidden="true"></i></a>
 
 
                                     </div>
@@ -87,6 +87,14 @@
 
                             </tr>
                         @endforeach
+                        @if(session('delete'))
+                            <div class="d-flex justify-content-center">
+                            <div class="alert alert-success w-75 fs d-flex justify-content-between" role="alert">
+                                    <small class="text-white fw-bold">{{ session('delete') }}</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                            @endif
 
                         </tbody>
                     </table>
