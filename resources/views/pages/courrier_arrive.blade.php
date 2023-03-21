@@ -113,8 +113,8 @@
                                 </p>
                                 </td>
                                 <td >
-                                    {{-- <a href="{{ url('/download_pdf',$courrier_dept ->pdf_file)}}" class="t font-weight-bold mb-0"> --}}
-                                   <a href="#">
+                                    <a href="{{ url('/download_pdf_arrive',$courrier_arrive->first()  ->pdf_file)}}" class="t font-weight-bold mb-0">
+
                                         <svg width="50px" height="50px" viewBox="-2.16 -2.16 28.32 28.32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#a3a3a3" stroke="#a3a3a3"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>pdf_fill</title> <g id="页面-1" stroke-width="0.00024000000000000003" fill="none" fill-rule="evenodd"> <g id="File" transform="translate(-480.000000, -144.000000)"> <g id="pdf_fill" transform="translate(480.000000, 144.000000)"> <path d="M24,0 L24,24 L0,24 L0,0 L24,0 Z M12.5934901,23.257841 L12.5819402,23.2595131 L12.5108777,23.2950439 L12.4918791,23.2987469 L12.4918791,23.2987469 L12.4767152,23.2950439 L12.4056548,23.2595131 C12.3958229,23.2563662 12.3870493,23.2590235 12.3821421,23.2649074 L12.3780323,23.275831 L12.360941,23.7031097 L12.3658947,23.7234994 L12.3769048,23.7357139 L12.4804777,23.8096931 L12.4953491,23.8136134 L12.4953491,23.8136134 L12.5071152,23.8096931 L12.6106902,23.7357139 L12.6232938,23.7196733 L12.6232938,23.7196733 L12.6266527,23.7031097 L12.609561,23.275831 C12.6075724,23.2657013 12.6010112,23.2592993 12.5934901,23.257841 L12.5934901,23.257841 Z M12.8583906,23.1452862 L12.8445485,23.1473072 L12.6598443,23.2396597 L12.6498822,23.2499052 L12.6498822,23.2499052 L12.6471943,23.2611114 L12.6650943,23.6906389 L12.6699349,23.7034178 L12.6699349,23.7034178 L12.678386,23.7104931 L12.8793402,23.8032389 C12.8914285,23.8068999 12.9022333,23.8029875 12.9078286,23.7952264 L12.9118235,23.7811639 L12.8776777,23.1665331 C12.8752882,23.1545897 12.8674102,23.1470016 12.8583906,23.1452862 L12.8583906,23.1452862 Z M12.1430473,23.1473072 C12.1332178,23.1423925 12.1221763,23.1452606 12.1156365,23.1525954 L12.1099173,23.1665331 L12.0757714,23.7811639 C12.0751323,23.7926639 12.0828099,23.8018602 12.0926481,23.8045676 L12.108256,23.8032389 L12.3092106,23.7104931 L12.3186497,23.7024347 L12.3186497,23.7024347 L12.3225043,23.6906389 L12.340401,23.2611114 L12.337245,23.2485176 L12.337245,23.2485176 L12.3277531,23.2396597 L12.1430473,23.1473072 Z" id="MingCute" fill-rule="nonzero"> </path> <path d="M12,2 L12,8.5 C12,9.32843 12.6716,10 13.5,10 L20,10 L20,20 C20,21.1046 19.1046,22 18,22 L6,22 C4.89543,22 4,21.1046 4,20 L4,4 C4,2.89543 4.89543,2 6,2 L12,2 Z M11.0113,11.8481 C10.7715,13.3709 9.975,14.7506 8.776,15.7196 C7.88908,16.4365 8.69984,17.8414 9.76438,17.4317 C11.2031,16.8779 12.7962,16.8779 14.235,17.4317 C15.2992,17.8413 16.1105,16.4367 15.2234,15.7197 C14.0245,14.7506 13.2279,13.3709 12.9881,11.848 C12.8108,10.722 11.1887,10.7207 11.0113,11.8481 Z M11.9986,14.3028 L12.805,15.6972 L11.195,15.6972 L11.9986,14.3028 Z M14,2.04336 C14.3759,2.12295 14.7241,2.30991 15,2.58579 L19.4142,7 C19.6901,7.27588 19.8771,7.62406 19.9566,8 L14,8 L14,2.04336 Z" id="形状" fill="#0456c8"> </path> </g> </g> </g> </g></svg>
                                     </a>
                                 </td>
@@ -142,6 +142,173 @@
 
 {{-- MOdal add Courrier Arrive --}}
 
+
+<div class="modal fade" id="ajouter_courrier_arrive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="text-center text-decoration-underline mt-2 fw-bold">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter Courrier Depart</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="my-form " role="form" method="POST" action="{{ route('ajouter.courrier-arrive') }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('post')
+                    <div class="container">
+
+                        {{-- Num D'ordre --}}
+                        <div class="row flex align-items-center ">
+                            <div class="col-4">
+                                <label for="numero_ordre">N° D'ORDRE :</label>
+                          </div>
+                            <div class="col-8">
+                                <input type="text" value="{{
+                               now()->year.''.rand(10000,99999)
+                            }}" class="form-control" id="numero_ordre" name="numero_ordre" readonly required>
+                                   @error('numero_ordre') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                            </div>
+
+                        </div>
+                        {{-- Date D'Arrivee --}}
+
+                        <div class="row flex align-items-center my-3">
+                            <div class="col-4">
+                                <label for="date_arrivee">Date Arrivee :</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="datetime-local" class="form-control" id="date_arrivee" name="date_arrivee"  required>
+                                @error('date_arrivee') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+                            </div>
+
+                        </div>
+
+                          {{-- Ref D'envoie--}}
+                          <div class="row flex align-items-center ">
+                            <div class="col-4">
+                                <label for="numero_ordre">Ref D'envoie :</label>
+                          </div>
+                            <div class="col-8">
+                                <input type="text" min="5"  class="form-control" id="ref_envoi" name="ref_envoi"  required>
+                                   @error('ref_envoi') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                            </div>
+
+                        </div>
+                        {{-- Expéditeur --}}
+                        <div class="row flex align-items-center my-3">
+                            <div class="col-4">
+                                <label for="type_exp_dest_id" _>Expéditeur :</label>
+                            </div>
+                            <div class="col-8">
+                                <select class="form-select form-select-sm" name="type_exp_dest_id" id="type_exp_dest_id" aria-label=".form-select-sm example" required>
+                                    <option disabled selected>type_exp_dest</option>
+                                    <option value="1">One</option>
+                                </select>
+                                @error('type_exp_dest_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+                            </div>
+
+                        </div>
+                        {{-- Nature Courrier --}}
+                        <div class="row flex align-items-center my-3">
+                            <div class="col-4">
+                                <label for="nature_courrier_id" _>Nature courrier :</label>
+                            </div>
+                            <div class="col-8">
+                                <select class="form-select form-select-sm" name="nature_courrier_id" id="nature_courrier_id" aria-label=".form-select-sm example" required>
+                                    <option disabled selected>Nature courrier</option>
+                                    <option value="1">One</option>
+                                </select>
+                                @error('nature_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+                            </div>
+
+                        </div>
+                        {{-- Objet --}}
+                        <div class="row flex align-items-center my-3">
+                            <div class="col-4">
+                                <label for="objet">Objet :</label>
+                            </div>
+                            <div class="col-8">
+                                <textarea name="objet" class="form-control" id="objet" rows="3" required></textarea>
+                                @error('objet') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+                            </div>
+
+                        </div>
+
+
+
+                        {{-- mode de arrivee du courrier --}}
+                        <div class="row flex align-items-center my-3">
+                            <div class="col-4">
+                                <label for="mode_courrier_id">Mode D'arrivee :</label>
+                            </div>
+                            <div class="col-8">
+                                <select class="form-select form-select-sm" name="mode_courrier_id" id="mode_courrier_id" aria-label=".form-select-sm example" required>
+                                    <option disabled selected>mode_courrier</option>
+                                    <option value="1">One</option>
+                                </select>
+                                @error('mode_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+                            </div>
+
+                        </div>
+                            {{-- date_envoie --}}
+
+                            <div class="row flex align-items-center my-3">
+                                <div class="col-4">
+                                    <label for="date_envoie">Date D'envoie :</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="datetime-local" class="form-control" id="date_envoie" name="date_envoie"  required>
+                                    @error('date_arrivee') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+                                </div>
+
+                            </div>
+                        {{-- Destination du courrier --}}
+                        <div class="row flex align-items-center my-3">
+                            <div class="col-4">
+                                <label for="destination_arrive_id">Destination :</label>
+                            </div>
+                            <div class="col-8">
+                                <select class="form-select form-select-sm" name="destination_arrive_id" id="destination_arrive_id" aria-label=".form-select-sm example" required>
+                                    <option disabled selected>destination_arrive</option>
+                                    <option value="1">One</option>
+                                </select>
+                                @error('destination_arrive_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+                            </div>
+
+                        </div>
+                        {{-- Scann du courrier --}}
+                        <div class="row flex align-items-center my-3">
+                            <div class="col-4">
+                                <label for="pdf_file">Scanne <span class="text-danger">*</span> (pdf):</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="file" class="form-control" id="pdf_file" name="pdf_file" required>
+                                @error('pdf_file') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button title="annuler" type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-close"></i></button>
+                <button title="ajouter" type="submit" class="btn btn-primary">Save</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 <script>
 
     // const tableRows = document.querySelectorAll('.table-row');

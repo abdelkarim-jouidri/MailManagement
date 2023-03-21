@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exp_dest_courriers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('type_exp_dest_id');
-            $table->timestamps();
+        Schema::table('courrier_arrives', function (Blueprint $table) {
+            $table->dropColumn('mission_id');
+            $table->dropColumn('ministere_id');
+            $table->dropColumn('etablissement_id');
         });
     }
 
@@ -28,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exp_dest_courriers');
+        Schema::table('courrier_arrives', function (Blueprint $table) {
+            //
+        });
     }
 };

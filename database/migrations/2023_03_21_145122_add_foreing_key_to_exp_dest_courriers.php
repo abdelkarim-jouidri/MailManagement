@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exp_dest_courriers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('type_exp_dest_id');
-            $table->timestamps();
+        Schema::table('exp_dest_courriers', function (Blueprint $table) {
+            $table->foreign('type_exp_dest_id') ->references('id')->on('type_exp_dests');
+
         });
     }
 
@@ -28,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exp_dest_courriers');
+        Schema::table('exp_dest_courriers', function (Blueprint $table) {
+            //
+        });
     }
 };

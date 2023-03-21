@@ -98,7 +98,7 @@ class CourrierDepartController extends Controller
             'is_lu'=>0,
         ]);
 
-       return redirect()->back();
+       return back()->with('ajoute','Courrier a été bien Ajouter');;
     }
 
     public function download_pdf(Request $request,$file){

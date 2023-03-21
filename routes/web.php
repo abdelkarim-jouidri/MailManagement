@@ -53,7 +53,7 @@ Route::get('/view_courrier_depart/{id}', [CourrierDepartController::class, 'show
 Route::get('/pdf_courrier_depart/{id}', [PDFController::class, 'pdf_courrier_depart'])->name('pdf_courrier_depart');
 
 // add courrier depart
-Route::post('/ajouter-courrier', [CourrierDepartController::class, 'store'])->name('ajouter.courrier-depart');
+Route::post('/ajouter-courrier-depart', [CourrierDepartController::class, 'store'])->name('ajouter.courrier-depart');
 
 //supprimer courier depart
 Route::get('/supprimer_courier_depart/{courrierDepart}',[CourrierDepartController::class,'destroy']);
@@ -62,9 +62,17 @@ Route::get('/modifier_courrier_depart/{courrierDepart}',[CourrierDepartControlle
 Route::put('/modifier_courrier_depart/{courrierDepart}',[CourrierDepartController::class,'update']);
 // download pdf
 Route::get('/download_pdf/{file}', [CourrierDepartController::class, 'download_pdf']);
+// download pdf depart
+Route::get('/download_pdf_depart/{file}', [CourrierDepartController::class, 'download_pdf']);
+
+// download pdf arrive
+Route::get('/download_pdf_arrive/{file}', [CourrierArriveController::class, 'download_pdf']);
 
 // courrier arrive
 Route::get('/courrier-arrive', [CourrierArriveController::class, 'index'])->name('courrier-arrive');
+
+// add courrier depart
+Route::post('/ajouter-courrier-arrive', [CourrierArriveController::class, 'store'])->name('ajouter.courrier-arrive');
 // change role
 Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'changerRole'])->name('change-role');
 // delete user
