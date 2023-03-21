@@ -16,7 +16,7 @@
         @if(session('update'))
             <div class="d-flex justify-content-center">
                 <div class="alert alert-success w-75 fs d-flex justify-content-between" role="alert">
-                        <small class="text-white fw-bold">{{ session('update') }}</small>
+                        <small class="text-white fw-bold text-center">{{ session('update') }}</small>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                                 <label for="numero_ordre">Numéro d'ordre :</label>
                           </div>
                             <div class="col-8">
-                                <input type="text" value="{{$courrier->number}}" class="form-control" id="numero_ordre" name="numero_ordre" readonly required>
+                                <input type="text" value="{{$courrier->number}}" class="form-control" id="numero_ordre" name="number" readonly required>
                                    @error('numero_ordre') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                             </div>
 
