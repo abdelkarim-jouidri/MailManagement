@@ -20,6 +20,7 @@ class CourrierArriveController extends Controller
     public function index()
     {
 
+        // get courrier arrive
         $courrier_arrive =DB::table('courrier_arrives')
         ->join('exp_dest_courriers', 'courrier_arrives.type_exp_dest_id', '=', 'exp_dest_courriers.id')
         ->join('nature_courriers', 'courrier_arrives.nature_courrier_id', '=', 'nature_courriers.id')
@@ -35,7 +36,29 @@ class CourrierArriveController extends Controller
         'type_courriers.name as type',
         )
         ->get();
-        return view('pages.courrier_arrive',['courrier_arrive'=>$courrier_arrive]);
+                // get nature de courrier arrive
+                $nature_courriers = DB::table('nature_courriers')->get();
+
+                // get expediteur de courrier arrive
+                $expediteurs = DB::table('exp_dest_courriers')->get();
+
+                 // get destination de courrier arrive
+                 $destinations = DB::table('destination_arrives')->get();
+
+                  // get mode de courrier arrive
+                  $modes = DB::table('mode_courriers')->get();
+
+                    // get type de courrier arrive
+                    $types = DB::table('type_courriers')->get();
+
+        return view('pages.courrier_arrive',[
+            'courrier_arrive'=>$courrier_arrive,
+        'nature_courriers'=>$nature_courriers,
+        'expediteurs'=>$expediteurs,
+        'destinations'=>$destinations,
+        'modes'=>$modes,
+        'types'=>$types,
+    ]);
 
 
     }
