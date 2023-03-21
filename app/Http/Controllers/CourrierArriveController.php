@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\CourrierArrive;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 use App\Http\Requests\StoreCourrierArriveRequest;
 use App\Http\Requests\UpdateCourrierArriveRequest;
 
@@ -53,10 +56,64 @@ class CourrierArriveController extends Controller
      * @param  \App\Http\Requests\StoreCourrierArriveRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCourrierArriveRequest $request)
+    public function store(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            'numero_ordre' => ['required', 'unique:courrier_arrives,number'],
+            'date_envoie' => 'required|date',
+            'date_arrivee' => 'required|date',
+            'ref_envoi' => 'required|min:5|max:25',
+            'type_exp_dest_id' => 'required',
+            'nature_courrier_id' => 'required',
+            'objet' => 'required|min:5|max:255',
+            // 'courrier_detail' => 'required|min:5',
+            // 'etat_courrier_id'=>'required',
+            'mode_courrier_id'=>'required',
+            'destination_arrive_id'=>'required',
+            'pdf_file'=>'required|mimes:pdf',
+
+        ]);
+
+
+        $pdf_file =$request->pdf_file;
+        $pdf_file_name=time().'.'.$pdf_file->getClientOriginalExtension();
+        $request->pdf_file->move('assets/pdf_courrier_arrive',$pdf_file_name);
+
+           DB::table('courrier_arrives')->insert([
+
+           'number' => $credentials['numero_ordre'],
+            'date_envoie' => $credentials['date_envoie'],
+            'date_arrivee' => $credentials['date_arrivee'],
+            'ref_envoi' => $credentials['ref_envoi'],
+            'type_exp_dest_id' =>$credentials['type_exp_dest_id'] ,
+            'nature_courrier_id' => $credentials['nature_courrier_id'],
+            'objet' => $credentials['objet'],
+            // 'courrier_detail' => $credentials['courrier_detail'],
+            // 'etat_courrier_id'=>$credentials['etat_courrier_id'],
+            'mode_courrier_id'=>$credentials['mode_courrier_id'],
+            'destination_arrive_id'=>$credentials['destination_arrive_id'],
+            'pdf_file'=>$pdf_file_name,
+            'utilisateur_id'=>Auth::user()->id,
+
+            'type_courrier_id'=>1,
+            'etat_courrier_id'=>1,
+            'pays_id'=>1,
+            'etudiant'=>0,
+            'is_rep'=>0,
+            'date_rep'=>now(),
+            'is_lu'=>0,
+        ]);
+
+       return back()->with('ajoute','Courrier a été bien Ajouter');;
     }
+
+
+
+    public function download_pdf(Request $request,$file){
+
+        return response()->download(public_path('assets/pdf_courrier_arrive/'.$file));
+
+        }
 
     /**
      * Display the specified resource.

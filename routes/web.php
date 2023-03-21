@@ -57,11 +57,17 @@ Route::post('/ajouter-courrier', [CourrierDepartController::class, 'store'])->na
 
 //supprimer courier depart
 Route::get('/supprimer_courier_depart/{courrierDepart}',[CourrierDepartController::class,'destroy']);
-// download pdf
-Route::get('/download_pdf/{file}', [CourrierDepartController::class, 'download_pdf']);
+// download pdf depart
+Route::get('/download_pdf_depart/{file}', [CourrierDepartController::class, 'download_pdf']);
+
+// download pdf arrive
+Route::get('/download_pdf_arrive/{file}', [CourrierArriveController::class, 'download_pdf']);
 
 // courrier arrive
 Route::get('/courrier-arrive', [CourrierArriveController::class, 'index'])->name('courrier-arrive');
+
+// add courrier depart
+Route::post('/ajouter-courrier', [CourrierArriveController::class, 'store'])->name('ajouter.courrier-arrive');
 // change role
 Route::get('/change-role/{id}/{is_admin}', [UserProfileController::class, 'changerRole'])->name('change-role');
 // delete user
