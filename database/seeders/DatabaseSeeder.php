@@ -26,16 +26,38 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('destination_arrives')->insert([
-             'name'=>'destination1'
+            ['name' => 'DG'],
+            ['name' => 'DAG'],
+            ['name' => 'ق.ت.ا'],
+            ['name' => 'DCTT'],
+            ['name' => 'LA REGIE'],
         ]);
 
         DB::table('etat_courriers')->insert([
-            'name'=>'etat1'
+           [ 'name'=>'Urgent'],
+           [ 'name'=>'Normal'],
+           [ 'name'=>'Trés_urgent'],
        ]);
 
+       DB::table('type_exp_dests')->insert([
+        ['name'=>'السيد عميد كلية الاداب والعلوم الانسانية- المحمدية-'],
+        ['name'=>'Personnel AMCI'],
+        ['name'=>'AMBASSADE : AFGHANISTANE-Non résident'],
+        ['name'=>'AMBASSADE : Albanie - Non résident'],
+        ['name'=>'AMBASSADE : Algerie - Rabat-'],
+        ['name'=>'AMBASSADE : Allemgne - Rabat -'],
+        ['name'=>'AMBASSADE : Andorre - Non résident '],
+        ['name'=>'AMBASSADE : Angola - Rabat-'],
+        ['name'=>'AMBASSADE : Arabie Saoudite - Rabat-'],
+        ]);
+
        DB::table('exp_dest_courriers')->insert([
-        'name'=>'ExpDestCourr1',
-        'type_exp_dest_id'=>1
+       [ 'name'=>'Afghanistan (République d`Afghanistan)','type_exp_dest_id'=>1],
+       [ 'name'=>'Angola','type_exp_dest_id'=>1],
+       [ 'name'=>'Arabie Saoudite','type_exp_dest_id'=>1],
+       [ 'name'=>'Belgique (Royaume de Belgique)','type_exp_dest_id'=>1],
+       [ 'name'=>'Congo Démocratique','type_exp_dest_id'=>1],
+       [ 'name'=>'E.A.U (Abu Dhabi)','type_exp_dest_id'=>1],
         ]);
 
         DB::table('menus')->insert([
@@ -46,10 +68,27 @@ class DatabaseSeeder extends Seeder
             ]);
 
             DB::table('mode_courriers')->insert([
-                'name'=>'mode1'
+                ['name'=>'Courrier porté'],
+                ['name'=>'Courrier posté'],
+                ['name'=>'SMES'],
+                ['name'=>'Fax'],
+                ['name'=>'Autre'],
+                ['name'=>'Personnel AMCI'],
+                ['name'=>'VD'],
                 ]);
+
                 DB::table('nature_courriers')->insert([
-                    'name'=>'NatureCourrier1'
+                    ['name'=>'Note'],
+                    ['name'=>'Lettre'],
+                    ['name'=>'Bordereau d`envoi'],
+                    ['name'=>'Decision'],
+                    ['name'=>'رسالة'],
+                    ['name'=>'Société divers '],
+                    ['name'=>'Bulletin'],
+                    ['name'=>'Confidentiel'],
+                    ['name'=>'FACTURE'],
+                    ['name'=>'مذكرة '],
+
                     ]);
 
                     DB::table('pays')->insert([
@@ -57,19 +96,33 @@ class DatabaseSeeder extends Seeder
                         ]);
 
                         DB::table('type_courriers')->insert([
-                            'name'=>'TypeCour1'
+                            ['name'=>'ترشيح'],
+                            ['name'=>'Ordre de mission'],
+                            ['name'=>'Bon de commande'],
+                            ['name'=>'Absence'],
+                            ['name'=>'Accorde de Coopération'],
+                            ['name'=>'accueil'],
+                            ['name'=>'Autre '],
+                            ['name'=>'Attestation de don'],
+                            ['name'=>'Certificat medical'],
                             ]);
 
-                            DB::table('type_exp_dests')->insert([
-                                'name'=>'TypeExp1'
-                                ]);
+
 
                                 DB::table('profils')->insert([
-                                    'name' => 'department'
+                                    ['name' => 'DG'],
+                                    ['name' => 'DAG'],
+                                    ['name' => 'DET'],
+                                    ['name' => 'DFC'],
+                                    ['name' => 'CUI'],
+                                    ['name' => 'BO'],
                                 ]);
 
                                         DB::table('fonctions')->insert([
-                                            'name' => fake()->jobTitle()
+                                            ['name' => 'Directeur Général'],
+                                            ['name' => 'Chef de département'],
+                                            ['name' => 'Chef de service'],
+                                            ['name' => 'Administrateur du bureau d`ordre'],
                                         ]);
     }
 }
