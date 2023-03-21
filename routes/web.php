@@ -57,6 +57,9 @@ Route::post('/ajouter-courrier', [CourrierDepartController::class, 'store'])->na
 
 //supprimer courier depart
 Route::get('/supprimer_courier_depart/{courrierDepart}',[CourrierDepartController::class,'destroy']);
+//modifie courrier depart
+Route::get('/modifier_courrier_depart/{courrierDepart}',[CourrierDepartController::class,'edit']);
+Route::put('/modifier_courrier_depart/{courrierDepart}',[CourrierDepartController::class,'update']);
 // download pdf
 Route::get('/download_pdf/{file}', [CourrierDepartController::class, 'download_pdf']);
 

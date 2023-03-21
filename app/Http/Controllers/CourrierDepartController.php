@@ -158,7 +158,26 @@ class CourrierDepartController extends Controller
      */
     public function edit(CourrierDepart $courrierDepart)
     {
-        //
+        $expediteur = DB::table('type_exp_dests')->get();
+        $dest_arrive = DB::table('destination_arrives')->get();
+        $mode_courrier = DB::table('mode_courriers')->get();
+        $type_courrier = DB::table('type_courriers')->get();
+        $nature_courriers = DB::table('nature_courriers')->get();
+        $etat_courriers = DB::table('etat_courriers')->get();
+
+        
+        // dd($expediteur);
+
+        return view('pages.courrier_depart_edit', 
+            [
+                'courrier'=>$courrierDepart ,
+                 'expediteurs'=>$expediteur ,
+                'dest_arrives'=>$dest_arrive,
+                'mode_courriers'=>$mode_courrier,
+                'type_courrier'=>$type_courrier,
+                'nature_courriers'=>$nature_courriers,
+                'etat_courriers'=>$etat_courriers
+            ]);
     }
 
     /**
@@ -168,9 +187,29 @@ class CourrierDepartController extends Controller
      * @param  \App\Models\CourrierDepart  $courrierDepart
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCourrierDepartRequest $request, CourrierDepart $courrierDepart)
+    public function update(Request $request, CourrierDepart $courrierDepart)
     {
-        //
+        $fields = $request->validate([
+            'number' => ['required', 'unique:courrier_departs,number,'.$courrierDepart->id],
+            'date_envoie' => 'required|date|after:today',
+            'type_exp_dest_id' => 'required',
+            'nature_courrier_id' => 'required',
+            'objet' => 'required|min:5|max:255',
+            'courrier_detail' => 'required|min:5',
+            'etat_courrier_id'=>'required',
+            'mode_courrier_id'=>'required',
+            'destination_arrive_id'=>'required',
+            'pdf_file'=>'nullable|mimes:pdf',
+        ]);
+
+        if($request->hasFile('pdf_file')){
+            $pdf_file =$request->pdf_file;
+            $pdf_file_name=time().'.'.$pdf_file->getClientOriginalExtension();
+            $request->pdf_file->move('assets/pdf_courrier_dept',$pdf_file_name);
+            $fields['pdf_file'] = $pdf_file_name;
+        }
+        $courrierDepart->update($fields);
+        return back()->with('update','updated successfully');
     }
 
     /**

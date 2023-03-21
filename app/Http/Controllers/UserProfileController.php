@@ -78,7 +78,6 @@ class UserProfileController extends Controller
 
     public function updateUser(Request $request , User $user){
         
-        // dd($request);
         $fields = $request->validate([
             'login' => 'required|alpha_num:ascii|min:2',
             'nom' => 'required|max:255|min:3',

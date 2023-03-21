@@ -28,10 +28,10 @@ return new class extends Migration
             $table->unsignedBigInteger('ministere_id');
             $table->unsignedBigInteger('etablissement_id');
             $table->unsignedBigInteger('pays_id');
+            $table->unsignedBigInteger('etat_courrier_id');
             $table->string('etudiant');
             $table->integer('is_rep');
             $table->dateTime('date_rep');
-            $table->integer('etat_courrier_id');
             $table->integer('is_lu');
             $table->timestamps();
         });
