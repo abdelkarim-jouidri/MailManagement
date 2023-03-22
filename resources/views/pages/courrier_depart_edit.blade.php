@@ -180,8 +180,9 @@
 
                     </div>
             </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button title="ajouter" type="submit" class="btn btn-primary">Appliquer les changements </button>
+            <div class="modal-footer d-flex justify-content-between">
+                <a href="/dashboard"><button type="button" class="btn btn-outline-primary"><< Retour </button></a>
+                <button title="ajouter" type="submit" class="btn btn-outline-primary">Appliquer les changements </button>
             </div>
      
       </form>
