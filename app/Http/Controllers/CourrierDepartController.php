@@ -36,7 +36,26 @@ class CourrierDepartController extends Controller
         'type_courriers.name as type',
         )
         ->get();
-        return view('pages.courrier_depart',['courrier_depart'=>$courrier_depart]);
+
+        // select options database values 
+        $expediteur = DB::table('type_exp_dests')->get();
+        $dest_arrive = DB::table('destination_arrives')->get();
+        $mode_courrier = DB::table('mode_courriers')->get();
+        $type_courrier = DB::table('type_courriers')->get();
+        $nature_courriers = DB::table('nature_courriers')->get();
+        $etat_courriers = DB::table('etat_courriers')->get();
+        
+        return view('pages.courrier_depart',
+            [
+                'courrier_depart'=>$courrier_depart,
+                'expediteurs'=>$expediteur ,
+                'dest_arrives'=>$dest_arrive,
+                'mode_courriers'=>$mode_courrier,
+                'type_courrier'=>$type_courrier,
+                'nature_courriers'=>$nature_courriers,
+                'etat_courriers'=>$etat_courriers
+            ]
+            );
     }
 
     /**

@@ -161,7 +161,9 @@
                             <div class="col-8">
                                 <select class="form-select form-select-sm" name="type_exp_dest_id" id="type_exp_dest_id" aria-label=".form-select-sm example" required>
                                     <option disabled selected>type_exp_dest</option>
-                                    <option value="1">One</option>
+                                    @foreach ($expediteurs as $expediteur)
+                                        <option value="{{$expediteur->id}}">{{$expediteur->name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('type_exp_dest_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
@@ -176,7 +178,9 @@
                             <div class="col-8">
                                 <select class="form-select form-select-sm" name="nature_courrier_id" id="nature_courrier_id" aria-label=".form-select-sm example" required>
                                     <option disabled selected>Nature courrier</option>
-                                    <option value="1">One</option>
+                                    @foreach ($nature_courriers as $nature_courrier)
+                                        <option value="{{$nature_courrier->id}}">{{$nature_courrier->name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('nature_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
@@ -218,7 +222,9 @@
                             <div class="col-8">
                                 <select class="form-select form-select-sm" name="etat_courrier_id" id="etat_courrier_id" aria-label=".form-select-sm example" required>
                                     <option disabled selected>etat_courrier</option>
-                                    <option value="1">One</option>
+                                    @foreach ($etat_courriers as $etat_courrier)
+                                        <option value="{{$etat_courrier->id}}">{{$etat_courrier->name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('etat_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
@@ -233,7 +239,9 @@
                             <div class="col-8">
                                 <select class="form-select form-select-sm" name="mode_courrier_id" id="mode_courrier_id" aria-label=".form-select-sm example" required>
                                     <option disabled selected>mode_courrier</option>
-                                    <option value="1">One</option>
+                                    @foreach ($mode_courriers as $mode_courrier)
+                                        <option value="{{$mode_courrier->id}}">{{$mode_courrier->name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('mode_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
@@ -248,7 +256,9 @@
                             <div class="col-8">
                                 <select class="form-select form-select-sm" name="destination_arrive_id" id="destination_arrive_id" aria-label=".form-select-sm example" required>
                                     <option disabled selected>destination_arrive</option>
-                                    <option value="1">One</option>
+                                    @foreach ($dest_arrives as $dest_arrive)
+                                        <option value="{{$dest_arrive->id}}">{{$dest_arrive->name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('destination_arrive_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
