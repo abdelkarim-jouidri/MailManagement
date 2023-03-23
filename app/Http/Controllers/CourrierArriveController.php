@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CourrierArrive;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\CourrierArrive;
+use App\Rules\GreaterThanSendDate;
+use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCourrierArriveRequest;
 use App\Http\Requests\UpdateCourrierArriveRequest;
 
@@ -49,7 +50,11 @@ class CourrierArriveController extends Controller
                   $modes = DB::table('mode_courriers')->get();
 
                     // get type de courrier arrive
-                    $types = DB::table('type_courriers')->get();
+        $type_courriers = DB::table('type_courriers')->get();
+
+// get etat
+$etat_courriers = DB::table('etat_courriers')->get();
+
 
         return view('pages.courrier_arrive',[
             'courrier_arrive'=>$courrier_arrive,
@@ -57,7 +62,10 @@ class CourrierArriveController extends Controller
         'expediteurs'=>$expediteurs,
         'destinations'=>$destinations,
         'modes'=>$modes,
-        'types'=>$types,
+        'type_courriers'=>$type_courriers,
+        'etat_courriers'=>$etat_courriers
+
+
     ]);
 
 
@@ -83,15 +91,16 @@ class CourrierArriveController extends Controller
     {
         $credentials = $request->validate([
             'numero_ordre' => ['required', 'unique:courrier_arrives,number'],
-            'date_envoie' => 'required|date',
-            'date_arrivee' => 'required|date',
+            'date_envoie' => 'required',
+            'date_arrivee' =>['required',new GreaterThanSendDate],
             'ref_envoi' => 'required|min:5|max:25',
             'type_exp_dest_id' => 'required',
             'nature_courrier_id' => 'required',
             'objet' => 'required|min:5|max:255',
-            // 'courrier_detail' => 'required|min:5',
-            // 'etat_courrier_id'=>'required',
+            'courrier_detail' => 'required|min:5',
+            'etat_courrier_id'=>'required',
             'mode_courrier_id'=>'required',
+            'type_courrier_id'=>'required',
             'destination_arrive_id'=>'required',
             'pdf_file'=>'required|mimes:pdf',
 
@@ -111,15 +120,14 @@ class CourrierArriveController extends Controller
             'type_exp_dest_id' =>$credentials['type_exp_dest_id'] ,
             'nature_courrier_id' => $credentials['nature_courrier_id'],
             'objet' => $credentials['objet'],
-            // 'courrier_detail' => $credentials['courrier_detail'],
-            // 'etat_courrier_id'=>$credentials['etat_courrier_id'],
+            'courrier_detail' => $credentials['courrier_detail'],
+            'etat_courrier_id'=>$credentials['etat_courrier_id'],
             'mode_courrier_id'=>$credentials['mode_courrier_id'],
+            'type_courrier_id'=>$credentials['type_courrier_id'],
             'destination_arrive_id'=>$credentials['destination_arrive_id'],
             'pdf_file'=>$pdf_file_name,
             'utilisateur_id'=>Auth::user()->id,
 
-            'type_courrier_id'=>1,
-            'etat_courrier_id'=>1,
             'pays_id'=>1,
             'etudiant'=>0,
             'is_rep'=>0,
@@ -127,7 +135,7 @@ class CourrierArriveController extends Controller
             'is_lu'=>0,
         ]);
 
-       return back()->with('ajoute','Courrier a été bien Ajouter');;
+       return back()->with('ajoute','Courrier a été bien Ajouter')->withInput();
     }
 
 

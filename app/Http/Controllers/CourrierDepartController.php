@@ -37,21 +37,21 @@ class CourrierDepartController extends Controller
         )
         ->get();
 
-        // select options database values 
+        // select options database values
         $expediteur = DB::table('type_exp_dests')->get();
         $dest_arrive = DB::table('destination_arrives')->get();
         $mode_courrier = DB::table('mode_courriers')->get();
-        $type_courrier = DB::table('type_courriers')->get();
+        $type_courriers = DB::table('type_courriers')->get();
         $nature_courriers = DB::table('nature_courriers')->get();
         $etat_courriers = DB::table('etat_courriers')->get();
-        
+
         return view('pages.courrier_depart',
             [
                 'courrier_depart'=>$courrier_depart,
                 'expediteurs'=>$expediteur ,
                 'dest_arrives'=>$dest_arrive,
                 'mode_courriers'=>$mode_courrier,
-                'type_courrier'=>$type_courrier,
+                'type_courriers'=>$type_courriers,
                 'nature_courriers'=>$nature_courriers,
                 'etat_courriers'=>$etat_courriers
             ]
@@ -85,6 +85,7 @@ class CourrierDepartController extends Controller
             'courrier_detail' => 'required|min:5',
             'etat_courrier_id'=>'required',
             'mode_courrier_id'=>'required',
+            'type_courrier_id'=>'required',
             'destination_arrive_id'=>'required',
             'pdf_file'=>'required|mimes:pdf',
 
@@ -105,11 +106,12 @@ class CourrierDepartController extends Controller
             'courrier_detail' => $credentials['courrier_detail'],
             'etat_courrier_id'=>$credentials['etat_courrier_id'],
             'mode_courrier_id'=>$credentials['mode_courrier_id'],
+            'type_courrier_id'=>$credentials['type_courrier_id'],
             'destination_arrive_id'=>$credentials['destination_arrive_id'],
             'pdf_file'=>$pdf_file_name,
             'utilisateur_id'=>Auth::user()->id,
 
-            'type_courrier_id'=>1,
+          
             'pays_id'=>1,
             'etudiant'=>0,
             'is_rep'=>0,
@@ -117,7 +119,7 @@ class CourrierDepartController extends Controller
             'is_lu'=>0,
         ]);
 
-       return back()->with('ajoute','Courrier a été bien Ajouter');;
+       return back()->with('ajoute','Courrier a été bien Ajouter')->withInput();
     }
 
     public function download_pdf(Request $request,$file){
@@ -184,10 +186,10 @@ class CourrierDepartController extends Controller
         $nature_courriers = DB::table('nature_courriers')->get();
         $etat_courriers = DB::table('etat_courriers')->get();
 
-        
+
         // dd($expediteur);
 
-        return view('pages.courrier_depart_edit', 
+        return view('pages.courrier_depart_edit',
             [
                 'courrier'=>$courrierDepart ,
                  'expediteurs'=>$expediteur ,

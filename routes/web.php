@@ -27,6 +27,11 @@ use App\Http\Controllers\CourrierArriveController;
 use App\Http\Controllers\CourrierDepartController;
 use App\Models\CourrierDepart;
 
+
+
+
+
+
     Route::get('/', function () {return redirect('/dashboard');});
 	Route::get('/register', [RegisterController::class, 'create'])->middleware('is_admin')->name('register');
 	Route::post('/register', [RegisterController::class, 'store'])->middleware('is_admin')->name('register.perform');

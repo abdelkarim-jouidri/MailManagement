@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\CourrierDepart;
-
+use Elibyy\TCPDF\Facades\TCPDF;
 class PDFController extends Controller
 {
+
     public function  pdf_courrier_depart($id){
 
 
@@ -29,10 +30,41 @@ class PDFController extends Controller
         ->where('courrier_departs.id', $id)
         ->get();
 
+        $filename = $courrier_depart->first()->number.'.'.'pdf';
 
 
-        $pdf = PDF::loadView('pages.pdf_courrierdepart', ['courrier_depart'=>$courrier_depart]);
 
-        return $pdf->download($courrier_depart->first()->number.'.pdf');
+        $html = view()->make('pages.pdf_courrierdepart', ['courrier_depart'=>$courrier_depart])->render();
+
+        $pdf = new TCPDF;
+
+        // set some language dependent data:
+$lg = Array();
+$lg['a_meta_charset'] = 'UTF-8';
+$lg['a_meta_dir'] = 'rtl';
+$lg['a_meta_language'] = 'fa';
+$lg['w_page'] = 'page';
+
+// set some language-dependent strings (optional)
+$pdf::setLanguageArray($lg);
+
+// ---------------------------------------------------------
+
+// set font
+$pdf::SetFont('dejavusans', '', 12);
+
+        $pdf::SetTitle('Courrier Depart');
+        $pdf::AddPage();
+        $pdf::writeHTML($html, true, false, true, false, '');
+
+        $pdf::Output(public_path($filename), 'F');
+
+        return response()->download(public_path($filename));
+
+
+
+        // $pdf = PDF::loadView('pages.pdf_courrierdepart', ['courrier_depart'=>$courrier_depart]);
+
+        // return $pdf->download($courrier_depart->first()->number.'.pdf');
      }
 }
