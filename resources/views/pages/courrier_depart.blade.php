@@ -248,6 +248,24 @@
                             </div>
 
                         </div>
+                            {{-- type de deaprt du courrier --}}
+                            <div class="row flex align-items-center my-3">
+                                <div class="col-4">
+                                    <label for="type_courrier_id">type de départ :</label>
+                                </div>
+                                <div class="col-8">
+                                    <select class="form-select form-select-sm" name="type_courrier_id" id="type_courrier_id" aria-label=".form-select-sm example" required>
+                                        <option disabled selected>type_courrier</option>
+                                        @foreach ($type_courriers as $type_courrier)
+                                            <option value="{{$type_courrier->id}}">{{$type_courrier->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('type_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+                                </div>
+
+                            </div>
+
                         {{-- Destination du courrier --}}
                         <div class="row flex align-items-center my-3">
                             <div class="col-4">

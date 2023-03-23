@@ -11,7 +11,7 @@
 
 <div class="d-flex justify-content-center align-items-center ">
   <div class="md:grid md:grid-cols-1 md:gap-6 w-50 border rounded mt-3 bg-white">
-   
+
     <div class="mt-5 ">
         @if(session('update'))
             <div class="d-flex justify-content-center">
@@ -145,6 +145,7 @@
                             </div>
 
                         </div>
+                       
                         {{-- Destination du courrier --}}
                         <div class="row flex align-items-center my-3">
                             <div class="col-4">
@@ -184,7 +185,7 @@
                 <a href="/dashboard"><button type="button" class="btn btn-outline-primary"><< Retour </button></a>
                 <button title="ajouter" type="submit" class="btn btn-outline-primary">Appliquer les changements </button>
             </div>
-     
+
       </form>
     </div>
   </div>
@@ -195,6 +196,6 @@
     <div class="border-t border-gray-200"></div>
   </div>
 </div>
-    
+
 </body>
 </html>

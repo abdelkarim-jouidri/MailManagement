@@ -169,31 +169,47 @@
                             </div>
 
                         </div>
-                        {{-- Date D'Arrivee --}}
+
+
+                          {{-- Ref D'envoie--}}
+                          <div class="row flex align-items-center my-3 ">
+                            <div class="col-4">
+                                <label for="ref_envoi">Ref D'envoie :</label>
+                          </div>
+                            <div class="col-8">
+                                <input type="text" min="5" value="{{ old('ref_envoi') }}"  class="form-control" id="ref_envoi" name="ref_envoi"  required>
+                                   @error('ref_envoi') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                            </div>
+
+                        </div>
+
+                              {{-- date_envoie --}}
+
+                              <div class="row flex align-items-center my-3">
+                                <div class="col-4">
+                                    <label for="date_envoie">Date D'envoie :</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="datetime-local"  value="{{ old('date_envoie') }}" class="form-control" id="date_envoie" name="date_envoie"  required>
+                                    @error('date_envoie') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+                                </div>
+
+                            </div>
+                                    {{-- Date D'Arrivee --}}
 
                         <div class="row flex align-items-center my-3">
                             <div class="col-4">
                                 <label for="date_arrivee">Date Arrivee :</label>
                             </div>
                             <div class="col-8">
-                                <input type="datetime-local" class="form-control" id="date_arrivee" name="date_arrivee"  required>
+                                <input type="datetime-local" value="{{ old('date_arrivee') }}" class="form-control" id="date_arrivee" name="date_arrivee"  required>
                                 @error('date_arrivee') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
                         </div>
 
-                          {{-- Ref D'envoie--}}
-                          <div class="row flex align-items-center ">
-                            <div class="col-4">
-                                <label for="numero_ordre">Ref D'envoie :</label>
-                          </div>
-                            <div class="col-8">
-                                <input type="text" min="5"  class="form-control" id="ref_envoi" name="ref_envoi"  required>
-                                   @error('ref_envoi') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                            </div>
-
-                        </div>
                         {{-- Expéditeur --}}
                         <div class="row flex align-items-center my-3">
                             <div class="col-4">
@@ -201,12 +217,14 @@
                             </div>
 
                             <div class="col-8">
+
                                 <select class="form-select form-select-sm" name="type_exp_dest_id" id="type_exp_dest_id" aria-label=".form-select-sm example" required>
-                                    <option disabled selected>type_exp_dest</option>
-                                    @foreach ($expediteurs as  $expediteur)
-                                    <option value="{{ $expediteur->id }}"> {{ $expediteur->name }}</option>
+                                    <option disabled {{ old('type_exp_dest_id') == null ? 'selected' : '' }}>type_exp_dest</option>
+                                    @foreach ($expediteurs as $expediteur)
+                                        <option value="{{ $expediteur->id }}" {{ old('type_exp_dest_id') == $expediteur->id ? 'selected' : '' }}> {{ $expediteur->name }}</option>
                                     @endforeach
                                 </select>
+
                                 @error('type_exp_dest_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
@@ -237,14 +255,42 @@
                                 <label for="objet">Objet :</label>
                             </div>
                             <div class="col-8">
-                                <textarea name="objet" class="form-control" id="objet" rows="3" required></textarea>
+                                <textarea name="objet"  class="form-control" id="objet" rows="3" required>{{ old('objet') }}</textarea>
                                 @error('objet') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
                             </div>
 
                         </div>
 
+{{-- Détail du courrier --}}
+<div class="row flex align-items-center my-3">
+    <div class="col-4">
+        <label for="courrier_detail">Détail du courrier :</label>
+    </div>
+    <div class="col-8">
+        <textarea name="courrier_detail" class="form-control"  id="courrier_detail" rows="3" required>{{ old('courrier_detail') }}</textarea>
+        @error('courrier_detail') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
+    </div>
+
+</div>
+{{-- etat courrier --}}
+<div class="row flex align-items-center my-3">
+    <div class="col-4">
+        <label for="etat_courrier_id">Etat Courrier :</label>
+    </div>
+    <div class="col-8">
+        <select class="form-select form-select-sm" name="etat_courrier_id" id="etat_courrier_id" aria-label=".form-select-sm example" required>
+            <option disabled selected>etat_courrier</option>
+            @foreach ($etat_courriers as $etat_courrier)
+                <option value="{{$etat_courrier->id}}">{{$etat_courrier->name}}</option>
+            @endforeach
+        </select>
+        @error('etat_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+
+    </div>
+
+</div>
 
                         {{-- mode de arrivee du courrier --}}
                         <div class="row flex align-items-center my-3">
@@ -264,19 +310,24 @@
                             </div>
 
                         </div>
-                            {{-- date_envoie --}}
+                                     {{-- type de deaprt du courrier --}}
+                                     <div class="row flex align-items-center my-3">
+                                        <div class="col-4">
+                                            <label for="type_courrier_id">type de départ :</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select class="form-select form-select-sm" name="type_courrier_id" id="type_courrier_id" aria-label=".form-select-sm example" required>
+                                                <option disabled selected>type_courrier</option>
+                                                @foreach ($type_courriers as $type_courrier)
+                                                    <option value="{{$type_courrier->id}}">{{$type_courrier->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('type_courrier_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
 
-                            <div class="row flex align-items-center my-3">
-                                <div class="col-4">
-                                    <label for="date_envoie">Date D'envoie :</label>
-                                </div>
-                                <div class="col-8">
-                                    <input type="datetime-local" class="form-control" id="date_envoie" name="date_envoie"  required>
-                                    @error('date_arrivee') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                                        </div>
 
-                                </div>
+                                    </div>
 
-                            </div>
                         {{-- Destination du courrier --}}
                         <div class="row flex align-items-center my-3">
                             <div class="col-4">
