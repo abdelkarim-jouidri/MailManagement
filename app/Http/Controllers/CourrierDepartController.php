@@ -111,7 +111,7 @@ class CourrierDepartController extends Controller
             'pdf_file'=>$pdf_file_name,
             'utilisateur_id'=>Auth::user()->id,
 
-          
+
             'pays_id'=>1,
             'etudiant'=>0,
             'is_rep'=>0,
@@ -143,6 +143,7 @@ class CourrierDepartController extends Controller
         ->join('mode_courriers', 'courrier_departs.mode_courrier_id', '=', 'mode_courriers.id')
         ->join('type_courriers', 'courrier_departs.type_courrier_id', '=', 'type_courriers.id')
         ->join('nature_courriers', 'courrier_departs.nature_courrier_id', '=', 'nature_courriers.id')
+        ->join('etat_courriers', 'courrier_departs.etat_courrier_id', '=', 'etat_courriers.id')
         ->select(
         'courrier_departs.*',
         'nature_courriers.name as nature',
@@ -150,6 +151,7 @@ class CourrierDepartController extends Controller
         'mode_courriers.name as mode',
         'type_courriers.name as type',
         'type_exp_dests.name as type_exp_dest',
+        'etat_courriers.name as etat',
         )
         ->where('courrier_departs.id', $id)
         ->get();
