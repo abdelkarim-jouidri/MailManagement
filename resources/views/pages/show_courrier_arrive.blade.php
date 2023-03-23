@@ -16,10 +16,11 @@
             <div class="card-header pb-0 p-3">
                 <div class="row">
                     <div class="col-6 d-flex align-items-center">
-                        <h6 class="mb-0">Courrier Depart</h6>
+                        <h6 class="mb-0">Courrier Arrive</h6>
                     </div>
                     <div class="col-6 text-end">
-                        <a href="{{ route('pdf_courrier_depart',['id'=>$courrier_depart->first()->id]) }}" class="btn btn-outline-primary btn-sm mb-1 "><i class="fa-solid fa-file-pdf"></i></a>
+
+                        <a href="{{ route('pdf_courrier_arrive',['id'=>$courrier_arrive->first()->id]) }}" class="btn btn-outline-primary btn-sm mb-1 "><i class="fa-solid fa-file-pdf"></i></a>
                     </div>
                 </div>
             </div>
@@ -27,56 +28,66 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Numero D'ordre :</p>  </div>
-                    <div><p>{{$courrier_depart->first()->number}}</p></div>
+                    <div><p>{{$courrier_arrive->first()->number}}</p></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div> <p>Ref :</p>  </div>
+                    <div><p>{{$courrier_arrive->first()->ref_envoi}}</p></div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Date D'envoie :</p>  </div>
-                    <div><pre>{{ $courrier_depart->first()->date_envoie }}</pre></div>
+                    <div><pre>{{ $courrier_arrive->first()->date_envoie }}</pre></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div> <p>Date Arrive :</p>  </div>
+                    <div><pre>{{ $courrier_arrive->first()->date_arrivee }}</pre></div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Objet :</p>  </div>
-                    <div><p>{{ $courrier_depart->first()->objet }}</p></div>
+                    <div><p>{{ $courrier_arrive->first()->objet }}</p></div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Type Exp  :</p>  </div>
-                    <div><p>{{ $courrier_depart->first()->type_exp_dest }}</p></div>
+                    <div><p>{{ $courrier_arrive->first()->expediteur }}</p></div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Destination :</p>  </div>
-                    <div><p>{{ $courrier_depart->first()->destination }}</p></div>
+                    <div><p>{{ $courrier_arrive->first()->destination }}</p></div>
                 </div>
 
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Mode :</p>  </div>
-                    <div><p>{{ $courrier_depart->first()->mode }}</p></div>
+                    <div><p>{{ $courrier_arrive->first()->mode }}</p></div>
                 </div>
 
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Type :</p>  </div>
-                    <div><p>{{ $courrier_depart->first()->type }}</p></div>
+                    <div><p>{{ $courrier_arrive->first()->type }}</p></div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Etat :</p>  </div>
-                    <div><p>{{ $courrier_depart->first()->etat }}</p></div>
+                    <div><p>{{ $courrier_arrive->first()->etat }}</p></div>
                 </div>
 
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Nature :</p>  </div>
-                    <div><p>{{ $courrier_depart->first()->nature }}</p></div>
+                    <div><p>{{ $courrier_arrive->first()->nature }}</p></div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Lu :</p>  </div>
                     <div>
-                        @if ($courrier_depart->first()->is_lu==1)
+                        @if ($courrier_arrive->first()->is_lu==1)
                         <p class="badge bg-success">oui</p>
                         @else
                         <p class="badge bg-danger">non</p>
@@ -89,7 +100,7 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <p>Courrier Detail :</p>  </div>
-                    <div><p>{{ $courrier_depart->first()->courrier_detail }}</p></div>
+                    <div><p>{{ $courrier_arrive->first()->courrier_detail }}</p></div>
                 </div>
 
 
@@ -97,7 +108,7 @@
         </div>
     </div>
     <div class="d-flex align-items-center justify-content-center my-3">
-        <a href="{{ route('courrier-depart') }}" class="btn text-white  bg-secondary w-50 my-1 mb-2"><i class="fa-solid fa-arrow-left"></i></a>
+        <a href="{{ route('courrier-arrive') }}" class="btn text-white  bg-secondary w-50 my-1 mb-2"><i class="fa-solid fa-arrow-left"></i></a>
 
 
     </div>

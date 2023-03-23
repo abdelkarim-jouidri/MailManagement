@@ -52,6 +52,7 @@
         <p class="font-bold">Destination :</p> {{ $courrier_depart->first()->destination }}
         <p class="font-bold"> Mode :</p> {{ $courrier_depart->first()->mode }}
         <p class="font-bold"> Type :</p> {{ $courrier_depart->first()->type }}
+        <p class="font-bold"> Etat :</p> {{ $courrier_depart->first()->etat }}
         <p class="font-bold"> Nature :</p> {{ $courrier_depart->first()->nature }}
         <p class="font-bold"> Detail Courrier : </p>{{ $courrier_depart->first()->courrier_detail }}
         <p class="font-bold" > is_lu : </p>
@@ -61,7 +62,7 @@
         <p class="badge bg-danger">non</p>
         @endif
 
-       
+
 
 </html>
 

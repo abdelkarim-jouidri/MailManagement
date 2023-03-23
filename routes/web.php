@@ -52,10 +52,15 @@ Route::get('/user-management', [UserProfileController::class, 'showAllUsers'])->
 
 // courrier depart
 Route::get('/courrier-depart', [CourrierDepartController::class, 'index'])->name('courrier-depart');
-// changer_visibilite (courrier depart)
+// show (courrier depart)
 Route::get('/view_courrier_depart/{id}', [CourrierDepartController::class, 'show'])->name('courrier_dept.show');
+// show (courrier arrive)
+Route::get('/view_courrier_arrive/{id}', [CourrierArriveController::class, 'show'])->name('courrier_arrive.show');
 // generate pdf  of view courrier depart
 Route::get('/pdf_courrier_depart/{id}', [PDFController::class, 'pdf_courrier_depart'])->name('pdf_courrier_depart');
+
+// generate pdf  of view courrier arrive
+Route::get('/pdf_courrier_arrive/{id}', [PDFController::class, 'pdf_courrier_arrive'])->name('pdf_courrier_arrive');
 
 // add courrier depart
 Route::post('/ajouter-courrier-depart', [CourrierDepartController::class, 'store'])->name('ajouter.courrier-depart');

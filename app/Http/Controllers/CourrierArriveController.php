@@ -152,9 +152,44 @@ $etat_courriers = DB::table('etat_courriers')->get();
      * @param  \App\Models\CourrierArrive  $courrierArrive
      * @return \Illuminate\Http\Response
      */
-    public function show(CourrierArrive $courrierArrive)
+    public function show($id)
     {
-        //
+       // get courrier depart
+        $courrier_arrive = CourrierArrive::find($id)
+        ->join('exp_dest_courriers', 'courrier_arrives.type_exp_dest_id', '=', 'exp_dest_courriers.id')
+        ->join('nature_courriers', 'courrier_arrives.nature_courrier_id', '=', 'nature_courriers.id')
+        ->join('mode_courriers', 'courrier_arrives.mode_courrier_id', '=', 'mode_courriers.id')
+        ->join('destination_arrives', 'courrier_arrives.destination_arrive_id', '=', 'destination_arrives.id')
+        ->join('type_courriers', 'courrier_arrives.type_courrier_id', '=', 'type_courriers.id')
+        ->join('etat_courriers', 'courrier_arrives.etat_courrier_id', '=', 'etat_courriers.id')
+        ->select(
+        'courrier_arrives.*',
+        'nature_courriers.name as nature',
+        'exp_dest_courriers.name as expediteur',
+        'destination_arrives.name as destination',
+        'mode_courriers.name as mode',
+        'type_courriers.name as type',
+        'etat_courriers.name as etat',
+
+        )
+        ->where('courrier_arrives.id', $id)
+        ->get();
+
+        // dd($courrier_depart);
+
+
+        if($courrier_arrive->first()->is_lu==0){
+            $courrier_arrive->first()->update([
+                'is_lu'=>1
+            ]);
+        }
+
+        return view('pages.show_courrier_arrive',['courrier_arrive'=>$courrier_arrive]);
+
+
+
+
+
     }
 
     /**
